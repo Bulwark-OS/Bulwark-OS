@@ -1,9 +1,9 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: bulwarkOS
+name: bulwark-os
 # description will be included in the image's metadata
-description: QubesOS-inspired immutable Linux distro with libvirt compartmentalization.
+description: Qubes OS-inspired immutable Linux distro with libvirt compartmentalization.
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
