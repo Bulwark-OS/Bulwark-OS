@@ -1,8 +1,9 @@
-<img alt="BulwarkOS-logo" src="https://github.com/user-attachments/assets/7b38f141-5f33-41a0-ae4c-103e5df54df7" />
+<img width="4061" height="884" alt="BulwarkOS-logo" src="https://github.com/user-attachments/assets/fdea4b2a-3d4c-4f13-b25c-6a2dd4475cc0" />
 
-# bulwark-os &nbsp; [![bluebuild build badge](https://github.com/connorethanjay/bulwark-os/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/bulwark-os/actions/workflows/build.yml)
+
+# bulwarkOS &nbsp; [![bluebuild build badge](https://github.com/connorethanjay/bulwarkOS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/bulwarkOS/actions/workflows/build.yml)
      
-bullwarkOS is a desktop Linux operating system intending to replicate the compartmentalization threat model established by distributions like [Qubes OS](https://www.qubes-os.org/). It is built using BlueBuild and shipped as a set of OCI bootable containers, using Fedora Atomic Desktop's base images as a starting point. Currently a work-in-progress with a website coming soon.
+bulwarkOS is a desktop Linux operating system intending to replicate the compartmentalization threat model established by distributions like [Qubes OS](https://www.qubes-os.org/). It is built using BlueBuild and shipped as a set of OCI bootable containers, using Fedora Atomic Desktop's base images as a starting point. Currently a work-in-progress with a website coming soon.
 
 ## Installation
 
@@ -13,7 +14,7 @@ To rebase an existing atomic Fedora installation to the latest build:
 
 - First rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/connorethanjay/bulwark-os:latest
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/connorethanjay/bulwarkOS:latest
   ```
 - Reboot to complete the rebase:
   ```
@@ -21,7 +22,7 @@ To rebase an existing atomic Fedora installation to the latest build:
   ```
 - Then rebase to the signed image, like so:
   ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/connorethanjay/bulwark-os:latest
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/connorethanjay/bulwarkOS:latest
   ```
 - Reboot again to complete the installation
   ```
@@ -39,5 +40,5 @@ If building on Fedora Atomic, you can generate an offline ISO with the instructi
 These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](https://github.com/sigstore/cosign). You can verify the signature by downloading the `cosign.pub` file from this repo and running the following command:
 
 ```bash
-cosign verify --key cosign.pub ghcr.io/connorethanjay/bulwark-os
+cosign verify --key cosign.pub ghcr.io/connorethanjay/bulwarkOS
 ```
