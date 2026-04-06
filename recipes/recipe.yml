@@ -6,7 +6,7 @@ name: bulwark-os
 description: Qubes OS-inspired immutable Linux distro with libvirt compartmentalization.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
+base-image: ghcr.io/ublue-os/bluefin
 image-version: latest # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
@@ -49,5 +49,22 @@ modules:
           - org.gnome.Nautilus
           - org.gnome.World.Secrets
       - scope: user # Also add Flathub user repo, but no user packages
+        # Add these Gnome extentions
+  - type: gnome-extensions
+    install:
+    - 307 # Dash to Dock
+    - Vitals
+    - Click to close overview # click on empty space in Overview to close it
+    - Date Menu Formatter
+
+  # Set default Gnome settings
+  - type: gschema-overrides
+    include:
+    - zz1-common.gschema.override
+
+  # This script is needed to make the 'files' module changes stick
+  - type: script
+    scripts:
+    - initramfs.sh
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
