@@ -3,7 +3,7 @@
 
 # bulwarkOS &nbsp; [![bluebuild build badge](https://github.com/connorethanjay/bulwarkOS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/bulwarkOS/actions/workflows/build.yml)
      
-bulwarkOS is a desktop Linux operating system intending to replicate the compartmentalization threat model established by distributions like [**Qubes OS**](https://www.qubes-os.org/). It is built using BlueBuild and uses [**secureblue**](https://secureblue.dev/) with nvidia-open drivers (Turing & later) as a starting point. This is more intended for my personal use, and is a work-in-progress.
+bulwarkOS is a desktop Linux operating system intending to replicate the compartmentalization threat model established by distributions like [**Qubes OS**](https://www.qubes-os.org/). bulwarkOS is built using BlueBuild and is based on [**secureblue**](https://secureblue.dev/) with nvidia-open drivers (Turing & later). This is more or less intended for my personal use, and is a work-in-progress.
 
 ## Installation
 
