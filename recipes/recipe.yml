@@ -3,11 +3,11 @@
 # image will be published to ghcr.io/<user>/<name>
 name: bulwark-os
 # description will be included in the image's metadata
-description: This is my personal OS image.
+description: QubesOS-inspired immutable Linux distro with libvirt compartmentalization.
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 42 # latest is also supported if you want new updates ASAP
+image-version: 43 # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -18,13 +18,19 @@ modules:
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
   - type: dnf
-    repos:
-      copr:
-        - atim/starship
+   # repos:
+    #  copr:
+   #     - atim/starship
     install:
       packages:
-        - micro
-        - starship
+        - libvirt
+        - virt-manager
+        - qemu-kvm
+        - dnsmasq
+        - virt-install
+        - python3-libvirt
+        - python3-gobject
+        - virt-viewer 
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
@@ -40,6 +46,8 @@ modules:
         install: # system flatpaks we want all users to have and not remove
           - org.mozilla.firefox
           - org.gnome.Loupe
+          - org.gnome.Nautilus
+          - org.gnome.World.Secrets
       - scope: user # Also add Flathub user repo, but no user packages
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
