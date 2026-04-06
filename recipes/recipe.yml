@@ -6,7 +6,7 @@ name: bulwark-os
 description: Qubes OS-inspired immutable Linux distro with libvirt compartmentalization.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/secureblue/silverblue-main-open-hardened
+base-image: ghcr.io/secureblue/silverblue-nvidia-open-hardened
 image-version: latest # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
@@ -31,8 +31,8 @@ modules:
         - python3-libvirt
         - python3-gobject
         - virt-viewer 
-    remove:
-      packages:
+   # remove:
+   #   packages:
         # example: removing firefox (in favor of the flatpak)
   - type: default-flatpaks
     configurations:
