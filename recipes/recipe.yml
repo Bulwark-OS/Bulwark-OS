@@ -6,7 +6,7 @@ name: bulwark-os
 description: Qubes OS-inspired immutable Linux distro with libvirt compartmentalization.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/bluefin
+base-image: ghcr.io/secureblue/silverblue-main-open-hardened
 image-version: latest # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
@@ -34,10 +34,6 @@ modules:
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
-        # "firefox" is the main package, "firefox-langpacks" is a dependency
-        - firefox
-        - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
-
   - type: default-flatpaks
     configurations:
       - notify: true # Send notification after install/uninstall is finished (true/false)
@@ -47,7 +43,6 @@ modules:
           - org.mozilla.firefox
           - org.gnome.Loupe
           - org.gnome.Nautilus
-          - org.gnome.World.Secrets
       - scope: user # Also add Flathub user repo, but no user packages
         # Add these Gnome extentions
   - type: gnome-extensions

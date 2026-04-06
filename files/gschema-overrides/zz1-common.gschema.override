@@ -3,7 +3,6 @@ num-workspaces=2
 
 [org.gnome.desktop.interface]
 color-scheme='prefer-dark'
-enable-hot-corners='false'
 
 [org.gnome.settings-daemon.plugins.power]
 ambient-enabled=false
