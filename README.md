@@ -47,7 +47,7 @@
 
 # bulwark-os &nbsp; [![bluebuild build badge](https://github.com/connorethanjay/bulwark-os/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/bulwark-os/actions/workflows/build.yml)
      
-bullwarkOS is a a security-focused desktop Linux operating system intended to replicate the compartmentalization threat model established by distributions like [Qubes OS](https://www.qubes-os.org/). It is built using BlueBuild and shipped as a set of OCI bootable containers, using Fedora Atomic Desktop's base images as a starting point. Currently a work-in-progress with a website coming soon.
+bullwarkOS is a desktop Linux operating system intending to replicate the compartmentalization threat model established by distributions like [Qubes OS](https://www.qubes-os.org/). It is built using BlueBuild and shipped as a set of OCI bootable containers, using Fedora Atomic Desktop's base images as a starting point. Currently a work-in-progress with a website coming soon.
 
 ## Installation
 
