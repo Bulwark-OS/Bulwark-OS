@@ -6,7 +6,7 @@ name: bulwark-os
 description: Qubes OS-inspired immutable Linux distro with libvirt compartmentalization.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/secureblue/silverblue-nvidia-open-hardened
+base-image: ghcr.io/ublue-os/silverblue-main
 image-version: latest # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
@@ -62,4 +62,10 @@ modules:
     user:
       enabled:
         - bulwarkos-setup.service
+  - type: os-release
+    properties:
+      ID: bulwarkOS
+      ID_LIKE: fedora
+      NAME: bulwarkOS
+      PRETTY_NAME: bulwarkOS
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
