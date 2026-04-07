@@ -53,15 +53,13 @@ modules:
   # Set default Gnome settings
   - type: gschema-overrides
     include:
-    - zz1-bulwarkos.gschema.override
+      - zz1-bulwarkos.gschema.override
   - type: systemd
     system:
-    enabled:
-      - libvirtd.service
-      - bulwarkos-disposable-reset.service
+      enabled:
+        - libvirtd.service
+        - bulwarkos-disposable-reset.service
     user:
-    enabled:
-      - bulwarkos-setup.service
-
-
+      enabled:
+        - bulwarkos-setup.service
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
