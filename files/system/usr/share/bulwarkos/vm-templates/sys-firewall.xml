@@ -1,0 +1,71 @@
+<domain type='kvm'>
+  <n>sys-firewall</n>
+  <title>BulwarkOS sys-firewall — traffic routing and policy VM</title>
+  <description>Routes and filters traffic between sys-net and AppVMs via nftables. Never exposes physical NICs directly.</description>
+
+  <memory unit='MiB'>512</memory>
+  <currentMemory unit='MiB'>512</currentMemory>
+  <vcpu placement='static'>2</vcpu>
+
+  <os firmware='efi'>
+    <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+
+  <features>
+    <acpi/>
+    <apic/>
+  </features>
+
+  <cpu mode='host-passthrough' check='none' migratable='off'/>
+
+  <clock offset='utc'>
+    <timer name='rtc' tickpolicy='catchup'/>
+    <timer name='pit' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+  </clock>
+
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' discard='unmap'/>
+      <source file='/var/lib/bulwarkos/images/sys-firewall.qcow2'/>
+      <target dev='vda' bus='virtio'/>
+      <boot order='1'/>
+    </disk>
+
+    <!-- Uplink to sys-net (same internal network) -->
+    <interface type='network'>
+      <source network='bulwark-internal'/>
+      <model type='virtio'/>
+      <alias name='uplink'/>
+    </interface>
+
+    <!-- Downlink to AppVMs (isolated network) -->
+    <interface type='network'>
+      <source network='bulwark-appvms'/>
+      <model type='virtio'/>
+      <alias name='appvm-downlink'/>
+    </interface>
+
+    <serial type='pty'>
+      <target type='isa-serial' port='0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+
+    <memballoon model='virtio'>
+      <stats period='5'/>
+    </memballoon>
+
+    <video>
+      <model type='none'/>
+    </video>
+  </devices>
+</domain>

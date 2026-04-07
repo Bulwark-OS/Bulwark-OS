@@ -1,0 +1,87 @@
+<domain type='kvm'>
+  <n>media</n>
+  <title>BulwarkOS — Media AppVM</title>
+  <description>VM for streaming, video playback, and downloaded media files.</description>
+
+  <memory unit='MiB'>4096</memory>
+  <currentMemory unit='MiB'>2048</currentMemory>
+  <vcpu placement='static'>4</vcpu>
+
+  <os firmware='efi'>
+    <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+
+  <features>
+    <acpi/>
+    <apic/>
+  </features>
+
+  <cpu mode='host-passthrough' check='none' migratable='off'/>
+
+  <clock offset='utc'>
+    <timer name='rtc' tickpolicy='catchup'/>
+    <timer name='pit' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+  </clock>
+
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' discard='unmap'/>
+      <source file='/var/lib/bulwarkos/images/media.qcow2'/>
+      <target dev='vda' bus='virtio'/>
+      <boot order='1'/>
+    </disk>
+
+    <interface type='network'>
+      <source network='bulwark-appvms'/>
+      <model type='virtio'/>
+    </interface>
+
+    <!-- SPICE with audio support for media playback -->
+    <graphics type='spice' autoport='yes'>
+      <listen type='none'/>
+      <image compression='off'/>
+    </graphics>
+
+    <video>
+      <model type='virtio' heads='1' primary='yes'>
+        <acceleration accel3d='yes'/>
+      </model>
+    </video>
+
+    <!-- VirtIO audio for media playback -->
+    <sound model='ich9'>
+      <audio id='1'/>
+    </sound>
+    <audio id='1' type='spice'/>
+
+    <channel type='spiceport'>
+      <target type='virtio' name='com.redhat.spice.0'/>
+    </channel>
+
+    <input type='tablet' bus='usb'/>
+    <input type='keyboard' bus='virtio'/>
+
+    <memballoon model='virtio'>
+      <stats period='5'/>
+    </memballoon>
+
+    <rng model='virtio'>
+      <backend model='random'>/dev/urandom</backend>
+    </rng>
+
+    <serial type='pty'>
+      <target type='isa-serial' port='0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+  </devices>
+</domain>

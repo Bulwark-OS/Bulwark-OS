@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# bulwarkos-reset-disposable
+# Regenerates the disposable VM overlay from its clean base image.
+# Called by bulwarkos-disposable-reset.service at shutdown/boot.
+#
+# The disposable VM uses a qcow2 overlay-on-backing-file pattern:
+#   base image (read-only):  /var/lib/bulwarkos/images/disposable-base.qcow2
+#   overlay (read-write):    /var/lib/bulwarkos/images/disposable-overlay.qcow2
+#
+# On each reset, the overlay is deleted and recreated empty,
+# pointing at the same clean base image.
+
+set -euo pipefail
+
+BASE="/var/lib/bulwarkos/images/disposable-base.qcow2"
+OVERLAY="/var/lib/bulwarkos/images/disposable-overlay.qcow2"
+
+if [[ ! -f "$BASE" ]]; then
+    echo "bulwarkos-reset-disposable: base image not found at $BASE — skipping." >&2
+    exit 0
+fi
+
+# Ensure the disposable VM is not running before touching its disk
+if virsh domstate disposable 2>/dev/null | grep -q "running"; then
+    echo "bulwarkos-reset-disposable: disposable VM is still running — waiting..." >&2
+    virsh shutdown disposable --mode acpi 2>/dev/null || true
+    sleep 10
+    virsh destroy disposable 2>/dev/null || true
+fi
+
+echo "Resetting disposable VM overlay..."
+rm -f "$OVERLAY"
+qemu-img create \
+    -f qcow2 \
+    -b "$BASE" \
+    -F qcow2 \
+    "$OVERLAY"
+
+echo "Disposable VM overlay reset complete."

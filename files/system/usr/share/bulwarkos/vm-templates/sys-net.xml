@@ -1,0 +1,80 @@
+<domain type='kvm'>
+  <name>sys-net</name>
+  <uuid><!-- generated at define time by libvirt --></uuid>
+  <title>BulwarkOS sys-net — network isolation VM</title>
+  <description>Receives physical NIC(s) via VFIO. All AppVM traffic routes through sys-firewall to this VM.</description>
+
+  <memory unit='MiB'>512</memory>
+  <currentMemory unit='MiB'>512</currentMemory>
+  <vcpu placement='static'>2</vcpu>
+
+  <os firmware='efi'>
+    <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+
+  <features>
+    <acpi/>
+    <apic/>
+  </features>
+
+  <cpu mode='host-passthrough' check='none' migratable='off'/>
+
+  <clock offset='utc'>
+    <timer name='rtc' tickpolicy='catchup'/>
+    <timer name='pit' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+  </clock>
+
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+
+    <!-- Boot disk: small Alpine Linux image managed by BulwarkOS -->
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' discard='unmap'/>
+      <source file='/var/lib/bulwarkos/images/sys-net.qcow2'/>
+      <target dev='vda' bus='virtio'/>
+      <boot order='1'/>
+    </disk>
+
+    <!-- Physical NIC(s) injected by OOBE wizard -->
+    {{NIC_HOSTDEVS}}
+
+    <!-- Internal network shared with sys-firewall (AppVM-side bridge) -->
+    <interface type='network'>
+      <source network='bulwark-internal'/>
+      <model type='virtio'/>
+      <alias name='net-to-firewall'/>
+    </interface>
+
+    <!-- Serial console for emergency access -->
+    <serial type='pty'>
+      <target type='isa-serial' port='0'>
+        <model name='isa-serial'/>
+      </target>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+
+    <!-- VirtIO balloon for memory management -->
+    <memballoon model='virtio'>
+      <stats period='5'/>
+    </memballoon>
+
+    <!-- No display output — headless VM -->
+    <video>
+      <model type='none'/>
+    </video>
+  </devices>
+
+  <!-- Auto-start with the host -->
+  <pm>
+    <suspend-to-mem enabled='no'/>
+    <suspend-to-disk enabled='no'/>
+  </pm>
+</domain>

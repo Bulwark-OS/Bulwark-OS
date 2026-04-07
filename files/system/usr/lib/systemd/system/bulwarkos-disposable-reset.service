@@ -1,0 +1,13 @@
+[Unit]
+Description=BulwarkOS Disposable VM — Reset overlay disk image
+Documentation=https://bulwarkos.org/docs/disposable-vm
+# Run after the disposable VM has fully shut down
+After=libvirtd.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/bin/bulwarkos-reset-disposable
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,127 @@
+<domain type='kvm'>
+  <n>gaming-vm</n>
+  <title>BulwarkOS — Gaming VM</title>
+  <description>High-performance gaming VM with dedicated GPU passthrough and Looking Glass display capture.</description>
+
+  <memory unit='MiB'>16384</memory>
+  <currentMemory unit='MiB'>16384</currentMemory>
+
+  <!-- Hugepages for GPU passthrough performance -->
+  <memoryBacking>
+    <hugepages/>
+  </memoryBacking>
+
+  <vcpu placement='static'>8</vcpu>
+
+  <os firmware='efi'>
+    <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
+    <bootmenu enable='no'/>
+  </os>
+
+  <features>
+    <acpi/>
+    <apic/>
+    <!-- Hide hypervisor from guest — required for Nvidia and many games -->
+    <hyperv mode='custom'>
+      <relaxed state='on'/>
+      <vapic state='on'/>
+      <spinlocks state='on' retries='8191'/>
+      <vpindex state='on'/>
+      <runtime state='on'/>
+      <synic state='on'/>
+      <stimer state='on'/>
+      <reset state='on'/>
+      <vendor_id state='on' value='AuthenticAMD'/>
+    </hyperv>
+    <kvm>
+      <hidden state='on'/>
+    </kvm>
+    <vmport state='off'/>
+    <ioapic driver='kvm'/>
+  </features>
+
+  <cpu mode='host-passthrough' check='none' migratable='off'>
+    <topology sockets='1' dies='1' cores='4' threads='2'/>
+    <!-- Cache passthrough for gaming performance -->
+    <cache mode='passthrough'/>
+  </cpu>
+
+  <clock offset='localtime'>
+    <timer name='rtc' tickpolicy='catchup'/>
+    <timer name='pit' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+    <timer name='hypervclock' present='yes'/>
+  </clock>
+
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+
+  <pm>
+    <suspend-to-mem enabled='no'/>
+    <suspend-to-disk enabled='no'/>
+  </pm>
+
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+
+    <!-- NVMe emulation for lower latency than virtio-blk -->
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' discard='unmap' cache='none' io='native'/>
+      <source file='/var/lib/bulwarkos/images/gaming-vm.qcow2'/>
+      <target dev='nvme0' bus='nvme'/>
+      <boot order='1'/>
+    </disk>
+
+    <!-- Passed-through GPU — injected by OOBE wizard -->
+    {{GPU_HOSTDEV}}
+
+    <!-- Network via sys-firewall -->
+    <interface type='network'>
+      <source network='bulwark-appvms'/>
+      <model type='virtio'/>
+    </interface>
+
+    <!--
+      Looking Glass shared memory device.
+      The host reads from this framebuffer to display the VM's output
+      without needing a physical monitor connected to the GPU.
+      Size must match the Looking Glass client configuration.
+      32MB supports up to 1440p; increase to 64MB for 4K.
+    -->
+    <shmem name='looking-glass'>
+      <model type='ivshmem-plain'/>
+      <size unit='M'>32</size>
+    </shmem>
+
+    <!--
+      VirtIO keyboard/mouse for input when not using Looking Glass.
+      evdev passthrough is preferred for Looking Glass users — configure
+      separately in /etc/libvirt/hooks/qemu.
+    -->
+    <input type='mouse' bus='virtio'/>
+    <input type='keyboard' bus='virtio'/>
+
+    <!-- Minimal display for pre-GPU-passthrough BIOS/UEFI phase only -->
+    <video>
+      <model type='vga' vram='16384' heads='1' primary='yes'/>
+    </video>
+
+    <!-- USB passthrough for controllers and peripherals -->
+    <controller type='usb' model='qemu-xhci' ports='15'/>
+
+    <memballoon model='none'/>
+
+    <rng model='virtio'>
+      <backend model='random'>/dev/urandom</backend>
+    </rng>
+
+    <serial type='pty'>
+      <target type='isa-serial' port='0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+  </devices>
+</domain>

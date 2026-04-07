@@ -1,0 +1,84 @@
+<domain type='kvm'>
+  <name>personal</name>
+  <title>BulwarkOS — Personal AppVM</title>
+  <description>Medium-trust VM for web browsing, email, and social media. Routes all traffic through sys-firewall.</description>
+
+  <memory unit='MiB'>4096</memory>
+  <currentMemory unit='MiB'>2048</currentMemory>
+  <vcpu placement='static'>4</vcpu>
+
+  <os firmware='efi'>
+    <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+
+  <features>
+    <acpi/>
+    <apic/>
+  </features>
+
+  <cpu mode='host-passthrough' check='none' migratable='off'/>
+
+  <clock offset='utc'>
+    <timer name='rtc' tickpolicy='catchup'/>
+    <timer name='pit' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+  </clock>
+
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' discard='unmap'/>
+      <source file='/var/lib/bulwarkos/images/personal.qcow2'/>
+      <target dev='vda' bus='virtio'/>
+      <boot order='1'/>
+    </disk>
+
+    <!-- Network via sys-firewall only — no direct NIC access -->
+    <interface type='network'>
+      <source network='bulwark-appvms'/>
+      <model type='virtio'/>
+    </interface>
+
+    <!-- VirtIO GPU for display output via virt-viewer / SPICE -->
+    <graphics type='spice' autoport='yes'>
+      <listen type='none'/>
+      <image compression='off'/>
+    </graphics>
+
+    <video>
+      <model type='virtio' heads='1' primary='yes'>
+        <acceleration accel3d='no'/>
+      </model>
+    </video>
+
+    <!-- Shared clipboard channel -->
+    <channel type='spiceport'>
+      <target type='virtio' name='com.redhat.spice.0'/>
+    </channel>
+
+    <!-- VirtIO input devices -->
+    <input type='tablet' bus='usb'/>
+    <input type='keyboard' bus='virtio'/>
+
+    <memballoon model='virtio'>
+      <stats period='5'/>
+    </memballoon>
+
+    <rng model='virtio'>
+      <backend model='random'>/dev/urandom</backend>
+    </rng>
+
+    <serial type='pty'>
+      <target type='isa-serial' port='0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+  </devices>
+</domain>
