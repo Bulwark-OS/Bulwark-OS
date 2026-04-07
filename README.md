@@ -3,9 +3,9 @@
 
 # bulwarkOS &nbsp; [![bluebuild build badge](https://github.com/connorethanjay/bulwarkOS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/bulwarkOS/actions/workflows/build.yml)
      
-bulwarkOS is a desktop Linux operating system intending to replicate the compartmentalization threat model established by distributions like [**Qubes OS**](https://www.qubes-os.org/). bulwarkOS is built using BlueBuild and is based on [**secureblue**](https://secureblue.dev/) with nvidia-open drivers (Turing & later). This is more or less intended for my personal use, and is a work-in-progress.
+bulwarkOS is a desktop Linux operating system intending to replicate the compartmentalization threat model established by distributions like [**Qubes OS**](https://www.qubes-os.org/). bulwarkOS is built using BlueBuild and is based on Fedora Silverblue. This is more or less intended for my personal use, and is a work-in-progress.
 
-In the future, I plan to make separate versions with & without NVIDIA support (allowing for the GPU to be VFIO passthrough-ed to a "gaming" VM.
+In the future, I plan to add features and tweaks created by the team at [**secureblue**](https://secureblue.dev/), but this will take time.
 
 ## Installation
 
