@@ -1,7 +1,7 @@
 <domain type='kvm'>
   <name>sys-net</name>
   <uuid><!-- generated at define time by libvirt --></uuid>
-  <title>BulwarkOS sys-net — network isolation VM</title>
+  <title>sys-net</title>
   <description>Receives physical NIC(s) via VFIO. All AppVM traffic routes through sys-firewall to this VM.</description>
 
   <memory unit='MiB'>512</memory>
@@ -10,7 +10,6 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
   </os>
 
   <features>

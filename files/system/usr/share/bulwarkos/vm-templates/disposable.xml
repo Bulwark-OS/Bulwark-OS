@@ -1,6 +1,6 @@
 <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
   <n>disposable</n>
-  <title>BulwarkOS — Disposable AppVM</title>
+  <title>Disposable AppVM</title>
   <description>Ephemeral VM. The disk image is reset from a clean snapshot on every boot. Nothing persists after shutdown.</description>
 
   <memory unit='MiB'>2048</memory>
@@ -9,7 +9,6 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
   </os>
 
   <features>

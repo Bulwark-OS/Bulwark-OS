@@ -1,6 +1,6 @@
 <domain type='kvm'>
   <name>personal</name>
-  <title>BulwarkOS — Personal AppVM</title>
+  <title>Personal AppVM</title>
   <description>Medium-trust VM for web browsing, email, and social media. Routes all traffic through sys-firewall.</description>
 
   <memory unit='MiB'>4096</memory>
@@ -9,7 +9,6 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
   </os>
 
   <features>

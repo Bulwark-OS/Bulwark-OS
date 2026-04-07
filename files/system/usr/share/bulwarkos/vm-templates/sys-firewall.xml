@@ -1,6 +1,6 @@
 <domain type='kvm'>
   <n>sys-firewall</n>
-  <title>BulwarkOS sys-firewall — traffic routing and policy VM</title>
+  <title>sys-firewall</title>
   <description>Routes and filters traffic between sys-net and AppVMs via nftables. Never exposes physical NICs directly.</description>
 
   <memory unit='MiB'>512</memory>
@@ -9,7 +9,6 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
   </os>
 
   <features>

@@ -1,6 +1,6 @@
 <domain type='kvm'>
   <n>work</n>
-  <title>BulwarkOS — Work AppVM</title>
+  <title>Work AppVM</title>
   <description>High-trust VM for office documents, meetings, and internal tools.</description>
 
   <memory unit='MiB'>8192</memory>
@@ -9,7 +9,6 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
   </os>
 
   <features>

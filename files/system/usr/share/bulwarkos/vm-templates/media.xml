@@ -1,6 +1,6 @@
 <domain type='kvm'>
   <n>media</n>
-  <title>BulwarkOS — Media AppVM</title>
+  <title>Media AppVM</title>
   <description>VM for streaming, video playback, and downloaded media files.</description>
 
   <memory unit='MiB'>4096</memory>
@@ -9,7 +9,6 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
   </os>
 
   <features>
