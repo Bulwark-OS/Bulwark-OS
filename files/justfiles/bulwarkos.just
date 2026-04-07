@@ -1,3 +1,4 @@
+# files/justfiles/bulwarkos.just
 [group('bulwarkOS')]
 setup-vfio VENDOR PCIIDS:
     rpm-ostree kargs \

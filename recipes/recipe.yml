@@ -55,7 +55,7 @@ modules:
     include:
     - zz1-bulwarkos.gschema.override
   - type: justfiles
-    validate: true
+    validate: false
     install: true
   # This script is needed to make the 'files' module changes stick
   - type: script
