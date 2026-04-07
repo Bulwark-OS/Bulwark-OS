@@ -1,6 +1,6 @@
 <network>
-  <n>bulwark-appvms</n>
-  <bridge name='virbr1' stp='off' delay='0'/>
+  <name>bulwark-appvms</name>
+  <bridge name='virbr2' stp='off' delay='0'/>
   <forward mode='none'/>
   <ip address='10.20.0.1' netmask='255.255.255.0'/>
 </network>

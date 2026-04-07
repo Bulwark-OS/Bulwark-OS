@@ -1,6 +1,6 @@
 <network>
   <name>bulwark-internal</name>
-  <bridge name='virbr0' stp='off' delay='0'/>
+  <bridge name='virbr1' stp='off' delay='0'/>
   <forward mode='none'/>
   <ip address='10.10.0.1' netmask='255.255.255.252'>
   </ip>
