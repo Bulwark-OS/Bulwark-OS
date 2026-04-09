@@ -1,8 +1,7 @@
 [Unit]
 Description=BulwarkOS First-Run Setup Wizard
-Documentation=https://bulwarkos.org/docs/setup
 # Only run if setup has not been completed yet
-ConditionPathExists=!/var/lib/bulwarkos/.setup-complete
+ConditionPathExists=/var/lib/bulwarkos/.setup-complete
 # Wait for the graphical session to be ready
 After=graphical-session.target
 Requires=graphical-session.target

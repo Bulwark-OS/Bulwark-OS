@@ -2,14 +2,13 @@
 Type=Application
 Name=bulwarkOS Setup
 Comment=First-run configuration wizard for bulwarkOS
-Exec=python3 -m bulwarkos_wizard
+Exec=/usr/bin/bulwarkos-setup
 Icon=/usr/share/pixmaps/fedora-logo-sprite.svg
 Terminal=false
-Categories=System;Settings;
+Categories=System
 # Only run once — wizard disables this entry on completion
 X-GNOME-Autostart-enabled=true
-X-GNOME-Autostart-Delay=3
-# Only show in GNOME (KDE uses XDG_AUTOSTART differently but will still honour >
+# Only show in GNOME (KDE uses XDG_AUTOSTART differently but will still honour this)
 OnlyShowIn=GNOME;KDE;
 # Do not show in the applications menu — launched by autostart only
 NoDisplay=true
