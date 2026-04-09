@@ -1,6 +1,5 @@
 <domain type='kvm'>
   <name>sys-net</name>
-  <uuid><!-- generated at define time by libvirt --></uuid>
   <title>sys-net</title>
   <description>Receives physical NIC(s) via VFIO. All AppVM traffic routes through sys-firewall to this VM.</description>
 
