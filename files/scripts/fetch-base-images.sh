@@ -16,4 +16,7 @@ curl -L --retry 3 -o "$BASE_DIR/fedora-cloud-base.qcow2" \
   "$RELEASE_URL/fedora-cloud-base.qcow2"
 
 echo "Verifying checksums..."
-sha256sum -c "$BASE_DIR/SHA256SUMS"
+echo "fedora-cloud-base:"
+sha256sum -c "$BASE_DIR/fedora-cloud-base.qcow2"
+echo "alpine-nocloud:"
+sha256sum -c "$BASE_DIR/alpine-nocloud.qcow2"
