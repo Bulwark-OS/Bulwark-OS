@@ -1,6 +1,6 @@
 <domain type='kvm'>
   <n>development</n>
-  <title>Development AppVM</title>
+  <title>BulwarkOS — Development AppVM</title>
   <description>VM for compilers, containers, and local development servers. Higher resource allocation.</description>
 
   <memory unit='MiB'>16384</memory>
@@ -9,6 +9,7 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
   </os>
 
   <features>
@@ -37,11 +38,21 @@
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
 
     <!-- Larger boot disk for dev tooling -->
+    <!-- Fedora Cloud Base clone — thin qcow2 backed by downloaded image -->
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2' discard='unmap'/>
       <source file='/var/lib/bulwarkos/images/development.qcow2'/>
       <target dev='vda' bus='virtio'/>
       <boot order='1'/>
+    </disk>
+
+    <!-- NoCloud cloud-init ISO — sets hostname, default user, packages.
+         Ejected automatically after first boot by cloud-init. -->
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='/var/lib/bulwarkos/images/development-cloud-init.iso'/>
+      <target dev='sda' bus='sata'/>
+      <readonly/>
     </disk>
 
     <interface type='network'>

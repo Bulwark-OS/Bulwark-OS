@@ -1,6 +1,6 @@
 <domain type='kvm'>
   <n>sys-firewall</n>
-  <title>sys-firewall</title>
+  <title>BulwarkOS sys-firewall — traffic routing and policy VM</title>
   <description>Routes and filters traffic between sys-net and AppVMs via nftables. Never exposes physical NICs directly.</description>
 
   <memory unit='MiB'>512</memory>
@@ -9,6 +9,7 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
   </os>
 
   <features>
@@ -31,11 +32,20 @@
   <devices>
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
 
+    <!-- Thin qcow2 overlay on the pre-built Alpine NoCloud base image -->
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2' discard='unmap'/>
       <source file='/var/lib/bulwarkos/images/sys-firewall.qcow2'/>
       <target dev='vda' bus='virtio'/>
       <boot order='1'/>
+    </disk>
+
+    <!-- NoCloud cloud-init seed ISO -->
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='/var/lib/bulwarkos/images/sys-firewall-cloud-init.iso'/>
+      <target dev='sda' bus='sata'/>
+      <readonly/>
     </disk>
 
     <!-- Uplink to sys-net (same internal network) -->

@@ -1,6 +1,6 @@
 <domain type='kvm'>
   <n>gaming-vm</n>
-  <title>Gaming VM</title>
+  <title>BulwarkOS — Gaming VM</title>
   <description>High-performance gaming VM with dedicated GPU passthrough and Looking Glass display capture.</description>
 
   <memory unit='MiB'>16384</memory>
@@ -15,6 +15,7 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
     <bootmenu enable='no'/>
   </os>
 

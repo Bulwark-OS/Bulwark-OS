@@ -16,7 +16,9 @@ modules:
     files:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
-
+  - type: script
+    scripts:
+      - fetch-base-images.sh
   - type: dnf
    # repos:
     #  copr:
@@ -27,10 +29,14 @@ modules:
         - virt-manager
         - qemu-kvm
         - dnsmasq
-        - virt-install
-        - python3-libvirt
+        - qemu-img
+        - bridge-utils
         - python3-gobject
-        - virt-viewer 
+        - python3-libvirt
+        - pciutils
+        - mokutil
+        - genisoimage
+        - curl
    # remove:
    #   packages:
         # example: removing firefox (in favor of the flatpak)
