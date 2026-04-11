@@ -7,10 +7,11 @@
 
 # About bulwarkOS
 
-bulwarkOS is an immutable desktop Linux distribution that brings the compartmentalization threat model of [**Qubes OS**](https://www.qubes-os.org/) to a conventional hypervisor stack without the significant hardware requirements and usability constraints that Qubes OS imposes.
+bulwarkOS is an immutable desktop Linux distribution that brings the compartmentalization threat model of [**Qubes OS**](https://www.qubes-os.org/) to a conventional hypervisor stack without the significant usability constraints that Qubes OS imposes.
 
 Rather than running Xen with disposable per-application VMs, bulwarkOS uses libvirt/KVM and VFIO hardware passthrough to isolate your physical network interfaces, firewall, and application environments into separate virtual machines, all configured automatically by a first-run setup wizard.
-The goal is a system that is meaningfully harder to compromise than a standard desktop Linux install, without sacrificing usability or gaming capability.
+
+The goal is a system that is meaningfully harder to compromise than a standard desktop Linux install, without sacrificing a system's usability or gaming capability.
 
 ## How it works
 
@@ -22,7 +23,7 @@ bulwarkOS establishes a layered isolation architecture on top of a standard Fedo
 
 **AppVMs** are isolated Fedora, Windows, Alpine, etc virtual machines, each representing a trust domain. They communicate with the outside world only through sys-firewall, never directly.
 
-The host itself runs a minimal footprint: virt-manager for VM control, Secrets for credential management, and optionally Steam/Lutris if you opted into the gaming stack during setup.
+The host itself runs a minimal footprint: virt-manager for VM control, Loupe & Nautilus for simple file management & image viewing.
 
 ## OOBE setup wizard
 
@@ -83,15 +84,12 @@ The host is intentionally minimal. Most applications belong in an AppVM, not on 
 | Flatpak | Purpose |
 |---|---|
 | `org.gnome.Loupe` | Image viewer |
-| `org.gnome.World.Secrets` | Password manager with host-level secret service integration |
 | `org.gnome.Nautilus` | File manager for VM shared folder access |
 
-The following are available as opt-in during OOBE for users who want gaming support  (Migration to dedicated gaming VM planned):
+The following are available as opt-in during OOBE for users who want gaming support.
 
 | Flatpak | Purpose |
 |---|---|
-| `com.valvesoftware.Steam` | Game launcher |
-| `net.lutris.Lutris` | Open-source game manager 
 | `com.github.gnome_looking_glass.LookingGlass` | Low-latency GPU passthrough display capture |
 
 ## AppVM trust domains
@@ -112,7 +110,6 @@ sys-net and sys-firewall are always provisioned automatically.
 
 This is a personal project and there are no fixed timelines, but planned work includes:
 
-- [ ] Migration of gaming tools from host to gaming VM entirely
 - [ ] AppVM image auto-update mechanism
 - [ ] Integration of hardening defaults from [secureblue](https://github.com/secureblue/secureblue)
 - [ ] virt-manager replacement / custom VM control panel
