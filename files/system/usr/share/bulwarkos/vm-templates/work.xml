@@ -1,5 +1,5 @@
 <domain type='kvm'>
-  <n>work</n>
+  <name>work</name>
   <title>BulwarkOS — Work AppVM</title>
   <description>High-trust VM for office documents, meetings, and internal tools.</description>
 
@@ -9,7 +9,6 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
   </os>
 
   <features>

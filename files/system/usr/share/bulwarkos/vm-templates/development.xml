@@ -1,5 +1,5 @@
 <domain type='kvm'>
-  <n>development</n>
+  <name>development</name>
   <title>BulwarkOS — Development AppVM</title>
   <description>VM for compilers, containers, and local development servers. Higher resource allocation.</description>
 
@@ -9,7 +9,6 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
   </os>
 
   <features>

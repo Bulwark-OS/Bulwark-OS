@@ -1,5 +1,5 @@
 <domain type='kvm'>
-  <n>sys-firewall</n>
+  <name>sys-firewall</name>
   <title>BulwarkOS sys-firewall — traffic routing and policy VM</title>
   <description>Routes and filters traffic between sys-net and AppVMs via nftables. Never exposes physical NICs directly.</description>
 

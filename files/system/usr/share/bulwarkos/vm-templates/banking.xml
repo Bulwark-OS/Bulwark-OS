@@ -1,5 +1,5 @@
 <domain type='kvm'>
-  <n>banking</n>
+  <name>banking</name>
   <title>BulwarkOS — Banking AppVM</title>
   <description>Maximum-isolation VM for financial sites only. Minimal footprint — no shared clipboard, no shared folders.</description>
 
@@ -10,7 +10,6 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
   </os>
 
   <features>

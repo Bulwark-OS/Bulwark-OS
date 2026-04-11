@@ -36,6 +36,7 @@ modules:
       packages:
         - gnome-tour
         - gnome-initial-setup
+        - gnome-shell-extension-background-logo
   - type: default-flatpaks
     configurations:
       - notify: false
