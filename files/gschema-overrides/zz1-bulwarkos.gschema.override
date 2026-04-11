@@ -15,4 +15,4 @@ clock-format='12h'
 
 [org.gnome.desktop.background]
 picture-uri='file:///usr/share/backgrounds/bulwarkos-default.png'
-picture-uri-dark='file:///usr/share/backgrounds/bulwarkos-default.png'
+picture-uri-dark='file:///usr/share/backgrounds/bulwarkos-black.png'

@@ -32,6 +32,10 @@ modules:
         - mokutil
         - genisoimage
         - curl
+    remove:
+      packages:
+        - gnome-tour
+        - gnome-initial-setup
   - type: default-flatpaks
     configurations:
       - notify: false
