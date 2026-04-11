@@ -40,14 +40,6 @@
       <boot order='1'/>
     </disk>
 
-    <!-- NoCloud cloud-init seed ISO -->
-    <disk type='file' device='cdrom'>
-      <driver name='qemu' type='raw'/>
-      <source file='/var/lib/bulwarkos/images/sys-firewall-cloud-init.iso'/>
-      <target dev='sda' bus='sata'/>
-      <readonly/>
-    </disk>
-
     <!-- Uplink to sys-net (same internal network) -->
     <interface type='network'>
       <source network='bulwark-internal'/>

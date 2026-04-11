@@ -9,6 +9,7 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
   </os>
 
   <features>
@@ -43,15 +44,6 @@
       <source file='/var/lib/bulwarkos/images/development.qcow2'/>
       <target dev='vda' bus='virtio'/>
       <boot order='1'/>
-    </disk>
-
-    <!-- NoCloud cloud-init ISO — sets hostname, default user, packages.
-         Ejected automatically after first boot by cloud-init. -->
-    <disk type='file' device='cdrom'>
-      <driver name='qemu' type='raw'/>
-      <source file='/var/lib/bulwarkos/images/development-cloud-init.iso'/>
-      <target dev='sda' bus='sata'/>
-      <readonly/>
     </disk>
 
     <interface type='network'>

@@ -94,6 +94,11 @@ modules:
       ID_LIKE: fedora
       NAME: bulwarkOS
       PRETTY_NAME: bulwarkOS
+      DEFAULT_HOSTNAME: bulwarkos
+      ANSI_COLOR: "0;38;2;84;106;193"
+      HOME_URL: "https://github.com/connorethanjay/bulwarkOS"
+      DOCUMENTATION_URL: "https://github.com/connorethanjay/bulwarkOS"
+      SUPPORT_URL: "https://github.com/connorethanjay/bulwarkOS"
       BUG_REPORT_URL: "https://github.com/connorethanjay/bulwarkOS/issues"
   # -------------------------------------------------------------------------
   #    Image signing — always last
