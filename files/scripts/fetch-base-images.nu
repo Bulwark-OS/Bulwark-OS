@@ -1,5 +1,5 @@
-# /files/scripts/fetch-base-images.sh
-#!/usr/bin/env bash
+# /files/scripts/fetch-base-images.nu
+#!/usr/bin/env nu
 
 BASE_DIR="/usr/share/bulwarkos/base-images"
 RELEASE_URL="https://github.com/connorethanjay/bulwarkOS/releases/download/base-images-v1"

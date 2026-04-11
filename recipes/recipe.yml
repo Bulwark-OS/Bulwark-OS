@@ -18,7 +18,7 @@ modules:
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
   - type: script
     scripts:
-      - fetch-base-images.sh
+      - fetch-base-images.nu
   - type: dnf
    # repos:
     #  copr:
