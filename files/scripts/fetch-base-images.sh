@@ -1,9 +1,8 @@
-# modules/fetch-base-images.sh
-#!/usr/bin/bash
-set -euo pipefail
+# /files/scripts/fetch-base-images.sh
+#!/usr/bin/env bash
 
 BASE_DIR="/usr/share/bulwarkos/base-images"
-RELEASE_URL="https://github.com/connorethanjay/bulwarkos/releases/download/base-images-v1"
+RELEASE_URL="https://github.com/connorethanjay/bulwarkOS/releases/download/base-images-v1"
 
 mkdir -p "$BASE_DIR"
 
