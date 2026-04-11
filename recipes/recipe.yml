@@ -1,28 +1,23 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# image will be published to ghcr.io/<user>/<name>
+
 name: bulwark-os
-# description will be included in the image's metadata
 description: Qubes OS-inspired immutable Linux distro with libvirt compartmentalization.
-
-# the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
-image-version: latest # latest is also supported if you want new updates ASAP
-
-# module configuration, executed in order
-# you can include multiple instances of the same module
+image-version: 43
+  # -------------------------------------------------------------------------
+  #    System files: drops wizard, VM templates, base images, systemd units
+  #    into the OS image verbatim from files/system/
+  # -------------------------------------------------------------------------
 modules:
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
-  - type: script
-    scripts:
-      - fetch-base-images.nu
+        destination: /
+  # -------------------------------------------------------------------------
+  #    DNF packages & default Flatpaks
+  # -------------------------------------------------------------------------
   - type: dnf
-   # repos:
-    #  copr:
-   #     - atim/starship
     install:
       packages:
         - libvirt
@@ -37,29 +32,46 @@ modules:
         - mokutil
         - genisoimage
         - curl
-   # remove:
-   #   packages:
-        # example: removing firefox (in favor of the flatpak)
   - type: default-flatpaks
     configurations:
-      - notify: true # Send notification after install/uninstall is finished (true/false)
+      - notify: false
         scope: system
-        # If no repo information is specified, Flathub will be used by default
-        install: # system flatpaks we want all users to have and not remove
+        install:
           - org.gnome.Loupe
-      - scope: user # Also add Flathub user repo, but no user packages
-        # Add these Gnome extentions
+      - scope: user
+  # -------------------------------------------------------------------------
+  #    Base VM Disk Images
+  # -------------------------------------------------------------------------
+  - type: containerfile
+    snippets:
+      - |
+        RUN BASE_DIR="/usr/share/bulwarkos/base-images" && \
+            RELEASE_URL="https://github.com/connorethanjay/bulwarkos/releases/download/base-images-v1" && \
+            mkdir -p "$BASE_DIR" && \
+            curl -L -f --retry 3 --retry-delay 5 \
+              -o "$BASE_DIR/alpine-nocloud.qcow2" \
+              "$RELEASE_URL/alpine-nocloud.qcow2" && \
+            curl -L -f --retry 3 --retry-delay 5 \
+              -o "$BASE_DIR/fedora-cloud-base.qcow2" \
+              "$RELEASE_URL/fedora-cloud-base.qcow2" && \
+            sha256sum "$BASE_DIR"/*.qcow2 > "$BASE_DIR/SHA256SUMS" && \
+            ls -lh "$BASE_DIR"
+  # -------------------------------------------------------------------------
+  #    Tweaks & Extensions
+  # -------------------------------------------------------------------------
   - type: gnome-extensions
     install:
-    - 307 # Dash to Dock
+    - 307
     - Vitals
-    - Click to close overview # click on empty space in Overview to close it
+    - Click to close overview
     - Date Menu Formatter
 
-  # Set default Gnome settings
   - type: gschema-overrides
     include:
       - zz1-bulwarkos.gschema.override
+  # -------------------------------------------------------------------------
+  #    Systemd units
+  # -------------------------------------------------------------------------
   - type: systemd
     system:
       enabled:
@@ -68,10 +80,17 @@ modules:
     user:
       enabled:
         - bulwarkos-setup.service
+  # -------------------------------------------------------------------------
+  #    OS identity
+  # -------------------------------------------------------------------------
   - type: os-release
     properties:
       ID: bulwarkOS
       ID_LIKE: fedora
       NAME: bulwarkOS
       PRETTY_NAME: bulwarkOS
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+      BUG_REPORT_URL: "https://github.com/connorethanjay/bulwarkOS/issues"
+  # -------------------------------------------------------------------------
+  #    Image signing — always last
+  # -------------------------------------------------------------------------
+  - type: signing
