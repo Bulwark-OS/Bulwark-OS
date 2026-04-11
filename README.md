@@ -125,7 +125,7 @@ bulwarkOS stands on the shoulders of several projects:
 - **[Qubes OS](https://www.qubes-os.org/)** — the threat model and compartmentalization philosophy that inspired this project
 - **[BlueBuild](https://blue-build.org/)** — the toolchain used to build and publish the OCI image
 - **[Universal Blue](https://universal-blue.org/)** — the Fedora Atomic ecosystem and base images
-- **[secureblue](https://github.com/secureblue/secureblue)** — planned future source of hardening defaults
+- **[secureblue](https://secureblue.dev)** — planned future source of hardening defaults
 - **[Fedora Project](https://fedoraproject.org/)** — the upstream Silverblue base
 
 ## Verification
