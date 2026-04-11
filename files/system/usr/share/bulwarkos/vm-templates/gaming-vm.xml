@@ -15,8 +15,6 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
-    <bootmenu enable='no'/>
   </os>
 
   <features>
