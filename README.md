@@ -7,10 +7,11 @@
 
 # About bulwarkOS
 
-bulwarkOS is an immutable desktop Linux distribution that brings the compartmentalization threat model of [**Qubes OS**](https://www.qubes-os.org/) to a conventional hypervisor stack without the significant hardware requirements and usability constraints that Qubes OS imposes.
+bulwarkOS is an immutable desktop Linux distribution that brings the compartmentalization threat model of [**Qubes OS**](https://www.qubes-os.org/) to a conventional hypervisor stack without the significant usability constraints that Qubes OS imposes.
 
 Rather than running Xen with disposable per-application VMs, bulwarkOS uses libvirt/KVM and VFIO hardware passthrough to isolate your physical network interfaces, firewall, and application environments into separate virtual machines, all configured automatically by a first-run setup wizard.
-The goal is a system that is meaningfully harder to compromise than a standard desktop Linux install, without sacrificing usability or gaming capability.
+
+The goal is a system that is meaningfully harder to compromise than a standard desktop Linux install, without sacrificing a system's usability or gaming capability.
 
 ## How it works
 
