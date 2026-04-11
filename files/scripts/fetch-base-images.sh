@@ -6,8 +6,6 @@ set -euo pipefail
 BASE_DIR="/usr/share/bulwarkos/base-images"
 RELEASE_URL="https://github.com/connorethanjay/bulwarkOS/releases/download/base-images-v1"
 
-mkdir -p "$BASE_DIR"
-
 echo "Fetching Alpine NoCloud base image..."
 curl -L --retry 3 -o "$BASE_DIR/alpine-nocloud.qcow2" \
   "$RELEASE_URL/alpine-nocloud.qcow2"
