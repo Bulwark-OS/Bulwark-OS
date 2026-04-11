@@ -1,6 +1,8 @@
 # /files/scripts/fetch-base-images.sh
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 BASE_DIR="/usr/share/bulwarkos/base-images"
 RELEASE_URL="https://github.com/connorethanjay/bulwarkOS/releases/download/base-images-v1"
 
