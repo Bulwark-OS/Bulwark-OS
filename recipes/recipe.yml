@@ -22,6 +22,7 @@ modules:
       packages:
         - libvirt
         - virt-manager
+        - virt-viewer
         - qemu-kvm
         - dnsmasq
         - qemu-img

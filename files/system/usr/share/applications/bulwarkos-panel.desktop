@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=BulwarkOS Panel
+GenericName=VM Control Panel
+Comment=Manage BulwarkOS virtual machine trust domains
+Exec=python3 -m bulwarkos_panel
+Icon=/usr/share/pixmaps/fedora-logo-sprite.svg
+Terminal=false
+Categories=System
+Keywords=VM;virtual machine;libvirt;security;
+StartupNotify=true
+StartupWMClass=bulwarkos-panel
