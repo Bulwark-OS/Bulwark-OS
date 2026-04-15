@@ -3,7 +3,7 @@ Type=Application
 Name=bulwarkOS Setup
 Comment=First-run configuration wizard for bulwarkOS
 Exec=/usr/bin/bulwarkos-setup
-Icon=/usr/share/pixmaps/fedora-logo-sprite.svg
+Icon=org.bulwarkos.setup
 Terminal=false
 Categories=System
 # Only run once — wizard disables this entry on completion
@@ -12,3 +12,4 @@ X-GNOME-Autostart-enabled=true
 OnlyShowIn=GNOME;KDE;
 # Do not show in the applications menu — launched by autostart only
 NoDisplay=true
+StartupWMClass=org.bulwarkos.Setup
