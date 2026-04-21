@@ -9,6 +9,7 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
   </os>
 
   <features>
@@ -46,7 +47,6 @@
       <!-- This overlay is regenerated fresh from the base image on each boot -->
       <source file='/var/lib/bulwarkos/images/disposable-overlay.qcow2'/>
       <target dev='vda' bus='virtio'/>
-      <boot order='1'/>
     </disk>
 
     <!-- Network via firewall — intentionally no LAN access beyond HTTP/HTTPS -->
@@ -56,7 +56,7 @@
     </interface>
 
     <graphics type='spice' autoport='yes'>
-      <listen type='none'/>
+      <listen type='address' address='127.0.0.1'/>
       <image compression='off'/>
       <!-- No clipboard — nothing should leave this VM -->
       <clipboard copypaste='no'/>

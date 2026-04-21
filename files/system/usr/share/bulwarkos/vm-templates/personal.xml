@@ -9,6 +9,7 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
   </os>
 
   <features>
@@ -47,7 +48,7 @@
 
     <!-- VirtIO GPU for display output via virt-viewer / SPICE -->
     <graphics type='spice' autoport='yes'>
-      <listen type='none'/>
+      <listen type='address' address='127.0.0.1'/>
       <image compression='off'/>
     </graphics>
 
@@ -58,7 +59,7 @@
     </video>
 
     <!-- Shared clipboard channel -->
-    <channel type='spiceport'>
+    <channel type='spicevmc'>
       <target type='virtio' name='com.redhat.spice.0'/>
     </channel>
 

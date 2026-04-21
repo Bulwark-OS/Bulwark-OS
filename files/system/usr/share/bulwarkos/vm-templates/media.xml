@@ -9,6 +9,7 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
   </os>
 
   <features>
@@ -46,7 +47,7 @@
 
     <!-- SPICE with audio support for media playback -->
     <graphics type='spice' autoport='yes'>
-      <listen type='none'/>
+      <listen type='address' address='127.0.0.1'/>
       <image compression='off'/>
     </graphics>
 
@@ -62,7 +63,7 @@
     </sound>
     <audio id='1' type='spice'/>
 
-    <channel type='spiceport'>
+    <channel type='spicevmc'>
       <target type='virtio' name='com.redhat.spice.0'/>
     </channel>
 

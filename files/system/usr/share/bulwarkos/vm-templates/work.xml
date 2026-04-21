@@ -1,5 +1,5 @@
 <domain type='kvm'>
-  <name>work</name>
+  <n>work</n>
   <title>BulwarkOS — Work AppVM</title>
   <description>High-trust VM for office documents, meetings, and internal tools.</description>
 
@@ -9,6 +9,7 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
   </os>
 
   <features>
@@ -45,7 +46,7 @@
     </interface>
 
     <graphics type='spice' autoport='yes'>
-      <listen type='none'/>
+      <listen type='address' address='127.0.0.1'/>
       <image compression='off'/>
     </graphics>
 
@@ -55,7 +56,7 @@
       </model>
     </video>
 
-    <channel type='spiceport'>
+    <channel type='spicevmc'>
       <target type='virtio' name='com.redhat.spice.0'/>
     </channel>
 

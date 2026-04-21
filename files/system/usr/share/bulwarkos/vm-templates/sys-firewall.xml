@@ -9,6 +9,7 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
   </os>
 
   <features>
@@ -31,15 +32,31 @@
   <devices>
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
 
-    <!-- Thin qcow2 overlay on the pre-built Alpine NoCloud base image -->
+    <!--
+      Primary boot disk — thin qcow2 overlay on the pre-installed
+      Alpine Cloud base image. Boots directly into Alpine; no installer
+      step required.
+    -->
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2' discard='unmap'/>
       <source file='/var/lib/bulwarkos/images/sys-firewall.qcow2'/>
       <target dev='vda' bus='virtio'/>
-      <boot order='1'/>
     </disk>
 
-    <!-- Uplink to sys-net (same internal network) -->
+    <!--
+      cloud-init NoCloud seed ISO. cloud-init scans block devices for
+      a device with volume label 'cidata' and reads user-data/meta-data
+      from it on first boot to configure hostname, nftables, IP forwarding.
+      This is NOT a bootable image — it is a data carrier only.
+      Once cloud-init has run, this cdrom can be detached.
+    -->
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='/var/lib/bulwarkos/images/sys-firewall-cloud-init.iso'/>
+      <target dev='sda' bus='sata'/>
+      <readonly/>
+    </disk>
+
     <interface type='network'>
       <source network='bulwark-internal'/>
       <model type='virtio'/>

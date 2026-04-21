@@ -10,6 +10,7 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
   </os>
 
   <features>
@@ -47,7 +48,7 @@
 
     <!-- SPICE with no clipboard sharing — intentional -->
     <graphics type='spice' autoport='yes'>
-      <listen type='none'/>
+      <listen type='address' address='127.0.0.1'/>
       <image compression='off'/>
       <!-- Clipboard sharing explicitly disabled for maximum isolation -->
       <clipboard copypaste='no'/>

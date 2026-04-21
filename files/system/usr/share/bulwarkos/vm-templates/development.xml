@@ -9,13 +9,12 @@
 
   <os firmware='efi'>
     <type arch='x86_64' machine='q35'>hvm</type>
+    <boot dev='hd'/>
   </os>
 
   <features>
     <acpi/>
     <apic/>
-    <!-- Allow nested virtualisation for running containers inside the VM -->
-    <vmx state='on'/>
   </features>
 
   <cpu mode='host-passthrough' check='none' migratable='off'>
@@ -51,7 +50,7 @@
     </interface>
 
     <graphics type='spice' autoport='yes'>
-      <listen type='none'/>
+      <listen type='address' address='127.0.0.1'/>
       <image compression='off'/>
     </graphics>
 
@@ -61,7 +60,7 @@
       </model>
     </video>
 
-    <channel type='spiceport'>
+    <channel type='spicevmc'>
       <target type='virtio' name='com.redhat.spice.0'/>
     </channel>
 
