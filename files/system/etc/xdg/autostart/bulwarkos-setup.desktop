@@ -3,7 +3,7 @@ Type=Application
 Name=bulwarkOS Setup
 Comment=First-run configuration wizard for bulwarkOS
 Exec=/usr/bin/bulwarkos-setup
-Icon=org.bulwarkos.setup
+Icon=org.bulwarkos.Setup
 Terminal=false
 Categories=System
 # Only run once — wizard disables this entry on completion
