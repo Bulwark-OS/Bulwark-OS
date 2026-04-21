@@ -1,4 +1,4 @@
-<img width="4061" height="884" alt="bulwarkOS-logo" src="https://github.com/user-attachments/assets/fdea4b2a-3d4c-4f13-b25c-6a2dd4475cc0" />
+<img alt="bulwarkOS-logo" src="https://github.com/user-attachments/assets/fdea4b2a-3d4c-4f13-b25c-6a2dd4475cc0" />
 
 # [![bluebuild build badge](https://github.com/connorethanjay/bulwarkOS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/bulwarkOS/actions/workflows/build.yml) <img src="https://img.shields.io/badge/built%20with-BlueBuild-informational" alt="Built with BlueBuild"/> <img src="https://img.shields.io/badge/base-Fedora%20Silverblue-blue?logo=fedora" alt="Base: Fedora Silverblue"/> <img src="https://img.shields.io/badge/status-early%20alpha-orange" alt="Status: Early Alpha"/>
 
