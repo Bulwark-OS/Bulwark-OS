@@ -53,7 +53,7 @@ modules:
   # ── Fetch base images ──────────────────────────────────────────────
       - |
         RUN BASE_DIR="/usr/share/bulwarkos/base-images" && \
-            RELEASE_URL="https://github.com/connorethanjay/bulwarkos/releases/download/base-images-v1" && \
+            RELEASE_URL="https://github.com/connorethanjay/bulwarkOS/releases/tag/v0.1.0" && \
             mkdir -p "$BASE_DIR" && \
             curl -L -f --retry 3 --retry-delay 5 \
               -o "$BASE_DIR/alpine-nocloud.qcow2" \
@@ -63,45 +63,6 @@ modules:
               "$RELEASE_URL/fedora-cloud-base.qcow2" && \
             sha256sum "$BASE_DIR"/*.qcow2 > "$BASE_DIR/SHA256SUMS" && \
             ls -lh "$BASE_DIR"
-            
-        RUN set -eux && \
-            apk_install() { \
-              # Install qemu-nbd if not present (available in Fedora qemu-img package)
-              command -v qemu-nbd || dnf install -y qemu-img; \
-            } && \
-            BASE_DIR="/usr/share/bulwarkos/base-images" && \
-            ALPINE_IMG="$BASE_DIR/alpine-nocloud.qcow2" && \
-            MNT="/mnt/alpine-customize" && \
-            mkdir -p "$MNT" && \
-            # Load nbd module — required for qemu-nbd
-            modprobe nbd max_part=8 || true && \
-            # Connect qcow2 to nbd device
-            qemu-nbd --connect=/dev/nbd0 "$ALPINE_IMG" && \
-            sleep 1 && \
-            # Find and mount the root partition (Alpine cloud uses partition 1)
-            mount /dev/nbd0p1 "$MNT" && \
-            # Bind-mount kernel namespaces needed by apk
-            mount --bind /proc "$MNT/proc" && \
-            mount --bind /sys  "$MNT/sys"  && \
-            mount --bind /dev  "$MNT/dev"  && \
-            # Inject host DNS so apk can reach Alpine mirrors
-            cp /etc/resolv.conf "$MNT/etc/resolv.conf" && \
-            # Install required packages
-            chroot "$MNT" apk add --no-cache \
-              nftables \
-              openssh \
-              dnsmasq \
-              ca-certificates && \
-            # Enable services at boot inside the image
-            chroot "$MNT" rc-update add sshd      default && \
-            chroot "$MNT" rc-update add nftables   default && \
-            chroot "$MNT" rc-update add dnsmasq    default && \
-            # Clean up
-            umount "$MNT/proc" "$MNT/sys" "$MNT/dev" && \
-            umount "$MNT" && \
-            qemu-nbd --disconnect /dev/nbd0 && \
-            rmdir "$MNT" && \
-            echo "Alpine base image customised successfully"
   # -------------------------------------------------------------------------
   #    Tweaks & Extensions
   # -------------------------------------------------------------------------
