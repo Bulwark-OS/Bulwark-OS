@@ -37,7 +37,6 @@
       <driver name='qemu' type='qcow2' discard='unmap'/>
       <source file='/var/lib/bulwarkos/images/work.qcow2'/>
       <target dev='vda' bus='virtio'/>
-      <boot order='1'/>
     </disk>
 
     <interface type='network'>
