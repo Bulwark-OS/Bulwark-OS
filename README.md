@@ -9,9 +9,9 @@
 
 bulwarkOS is an immutable desktop Linux distribution that brings the compartmentalization threat model of [**Qubes OS**](https://www.qubes-os.org/) to a conventional hypervisor stack without the significant usability constraints that Qubes OS imposes.
 
-Rather than running Xen with disposable per-application VMs, bulwarkOS uses libvirt/KVM and VFIO hardware passthrough to isolate your physical network interfaces, firewall, and application environments into separate virtual machines, all configured automatically by a first-run setup wizard.
+Rather than running Xen like in Qubes OS, bulwarkOS uses libvirt/KVM as it's hypervisor, with VFIO hardware passthrough to isolate meaningful hardware like your physical network interfaces & graphics card. Environments like "Work" and "Personal" can be separated into different virtual machines, all configured automatically by a first-run setup wizard and then accessed with a custom panel application.
 
-The goal is a system that is meaningfully harder to compromise than a standard desktop Linux install, without sacrificing a system's usability or gaming capability.
+The end-goal is a system that is meaningfully harder to compromise than a standard desktop Linux install, without sacrificing a system's usability or gaming capability.
 
 ## How it works
 
@@ -23,7 +23,12 @@ bulwarkOS establishes a layered isolation architecture on top of a standard Fedo
 
 **AppVMs** are isolated Fedora, Windows, Alpine, etc virtual machines, each representing a trust domain. They communicate with the outside world only through sys-firewall, never directly.
 
-The host itself runs a minimal footprint: virt-manager for VM control, Loupe & Nautilus for simple file management & image viewing.
+The host itself runs a minimal footprint: 
+
+- the BulwarkOS Panel provides access & management to your virtual machines
+- virt-manager acts as a backup to the BulwarkOS Panel for more granular control.
+- Loupe for viewing simple media on the host.
+- Nautilus for simple file management on the host.
 
 ## OOBE setup wizard
 
@@ -41,7 +46,6 @@ After installation, a GTK4/Libadwaita setup wizard runs automatically on first l
 - Reboots to activate the configuration
 
 No manual kernel argument editing or XML writing required.
-
 
 ## Installation
 
@@ -86,23 +90,26 @@ The host is intentionally minimal. Most applications belong in an AppVM, not on 
 | `org.gnome.Loupe` | Image viewer |
 | `org.gnome.Nautilus` | File manager for VM shared folder access |
 
-The following are available as opt-in during OOBE for users who want gaming support.
+The following will be available as an opt-in during OOBE for users who want gaming support.
 
 | Flatpak | Purpose |
 |---|---|
 | `com.github.gnome_looking_glass.LookingGlass` | Low-latency GPU passthrough display capture |
 
-## AppVM trust domains
+## VM trust domains
 
+The following are pre-defined trust levels within BulwarkOS.
 | VM | Base OS | Trust level | Default |
 |---|---|---|---|
-| personal | Fedora Cloud | Medium — browsing, email, social | ✓ |
-| work | Fedora Cloud | High — office, meetings, internal tools | ✓ |
-| banking | Fedora Cloud | Maximum — financial sites, no clipboard sharing | ✓ |
-| development | Fedora Cloud | Dev — compilers, containers, local servers | Optional |
-| disposable | Alpine | Ephemeral — wiped completely on shutdown | Optional |
-| media | Fedora Cloud | Low — streaming, local media playback | Optional |
-| gaming-vm | User-installed | GPU passthrough, Looking Glass display | Optional |
+| sys-net | Alpine | System — routed directly to internet | ✓ |
+| sys-firewall | Alpine | System — firewall between AppVMs and sys-net | ✓ |
+| personal | Fedora Cloud | Trusted — browsing, email, social | Optional |
+| work | Fedora Cloud | Trusted — office, meetings, internal tools | Optional |
+| banking | Fedora Cloud | Vault — financial sites, no clipboard sharing | Optional |
+| development | Fedora Cloud | Development — compilers, containers, local servers | Optional |
+| disposable | Alpine | Untrusted — wiped completely on shutdown | Optional |
+| media | Fedora Cloud | Untrusted — streaming, local media playback | Optional |
+| gaming-vm | User-installed | Untrusted passthrough, Looking Glass display | Optional |
 
 sys-net and sys-firewall are always provisioned automatically.
 
@@ -110,9 +117,9 @@ sys-net and sys-firewall are always provisioned automatically.
 
 This is a personal project and there are no fixed timelines, but planned work includes:
 
+- [ ] virt-manager replacement / custom VM control panel (BulwarkOS Panel)
 - [ ] AppVM image auto-update mechanism
 - [ ] Integration of hardening defaults from [secureblue](https://github.com/secureblue/secureblue)
-- [ ] virt-manager replacement / custom VM control panel
 - [ ] Per-AppVM nftables egress policy configuration in the OOBE wizard
 - [ ] Wayland clipboard broker between AppVMs (controlled sharing)
 - [ ] Looking Glass integration improvements for the gaming VM
