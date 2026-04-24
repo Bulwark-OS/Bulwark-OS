@@ -7,9 +7,12 @@
   <currentMemory unit='MiB'>512</currentMemory>
   <vcpu placement='static'>2</vcpu>
 
-  <os firmware='efi'>
+  <os>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
+    <!-- Explicit non-Secure-Boot OVMF. firmware='efi' on Fedora auto-selects
+         OVMF_CODE.secboot.fd which blocks unsigned images such as Alpine. -->
+    <loader readonly='yes' type='pflash'>/usr/share/edk2/ovmf/OVMF_CODE.fd</loader>
+    <nvram template='/usr/share/edk2/ovmf/OVMF_VARS.fd'/>
   </os>
 
   <features>
@@ -41,6 +44,7 @@
       <driver name='qemu' type='qcow2' discard='unmap'/>
       <source file='/var/lib/bulwarkos/images/sys-firewall.qcow2'/>
       <target dev='vda' bus='virtio'/>
+      <boot order='2'/>
     </disk>
 
     <!--
@@ -54,6 +58,7 @@
       <driver name='qemu' type='raw'/>
       <source file='/var/lib/bulwarkos/images/sys-firewall-cloud-init.iso'/>
       <target dev='sda' bus='sata'/>
+      <boot order='1'/>
       <readonly/>
     </disk>
 
@@ -69,10 +74,25 @@
       <model type='virtio'/>
       <alias name='appvm-downlink'/>
     </interface>
+    
+    
+    <graphics type='spice' autoport='yes'>
+      <listen type='address' address='127.0.0.1'/>
+      <image compression='off'/>
+    </graphics>
+
+    <video>
+      <model type='qxl' ram='65536' vram='65536' vgamem='16384' heads='1' primary='yes'/>
+    </video>
+
+    <channel type='spicevmc'>
+      <target type='virtio' name='com.redhat.spice.0'/>
+    </channel>
 
     <serial type='pty'>
       <target type='isa-serial' port='0'/>
     </serial>
+    
     <console type='pty'>
       <target type='serial' port='0'/>
     </console>
@@ -81,8 +101,5 @@
       <stats period='5'/>
     </memballoon>
 
-    <video>
-      <model type='none'/>
-    </video>
   </devices>
 </domain>

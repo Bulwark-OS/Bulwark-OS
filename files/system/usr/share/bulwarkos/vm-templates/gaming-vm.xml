@@ -13,10 +13,11 @@
 
   <vcpu placement='static'>8</vcpu>
 
-  <os firmware='efi'>
+  <os>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
-    <bootmenu enable='no'/>
+    <!-- Explicit non-Secure-Boot OVMF — gaming VM needs to boot unsigned Windows ISO -->
+    <loader readonly='yes' type='pflash'>/usr/share/edk2/ovmf/OVMF_CODE.fd</loader>
+    <nvram template='/usr/share/edk2/ovmf/OVMF_VARS.fd'/>
   </os>
 
   <features>
@@ -70,12 +71,9 @@
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2' discard='unmap' cache='none' io='native'/>
       <source file='/var/lib/bulwarkos/images/gaming-vm.qcow2'/>
-      <target dev='nvme0n1' bus='nvme'/>
+      <target dev='vda' bus='virtio'/>
+      <boot order='1'/>
     </disk>
-    
-    <controller type='nvme' index='0'>
-      <serial>DEADBEEF</serial>
-    </controller>
 
     <!-- Passed-through GPU — injected by OOBE wizard -->
     {{GPU_HOSTDEV}}

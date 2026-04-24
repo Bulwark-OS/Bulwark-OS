@@ -7,9 +7,12 @@
   <currentMemory unit='MiB'>2048</currentMemory>
   <vcpu placement='static'>2</vcpu>
 
-  <os firmware='efi'>
+  <os>
     <type arch='x86_64' machine='q35'>hvm</type>
-    <boot dev='hd'/>
+    <!-- Explicit non-Secure-Boot OVMF. firmware='efi' on Fedora auto-selects
+         OVMF_CODE.secboot.fd which blocks unsigned images such as Alpine. -->
+    <loader readonly='yes' type='pflash'>/usr/share/edk2/ovmf/OVMF_CODE.fd</loader>
+    <nvram template='/usr/share/edk2/ovmf/OVMF_VARS.fd'/>
   </os>
 
   <features>
@@ -47,6 +50,7 @@
       <!-- This overlay is regenerated fresh from the base image on each boot -->
       <source file='/var/lib/bulwarkos/images/disposable-overlay.qcow2'/>
       <target dev='vda' bus='virtio'/>
+      <boot order='1'/>
     </disk>
 
     <!-- Network via firewall — intentionally no LAN access beyond HTTP/HTTPS -->

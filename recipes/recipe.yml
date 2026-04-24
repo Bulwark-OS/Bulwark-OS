@@ -31,7 +31,6 @@ modules:
         - python3-libvirt
         - pciutils
         - mokutil
-        - genisoimage
         - curl
     remove:
       packages:
