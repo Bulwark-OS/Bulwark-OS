@@ -91,9 +91,14 @@
     <memballoon model='virtio'>
       <stats period='5'/>
     </memballoon>
+    
+     <!-- virtio-serial channel for bulwark-wifi-proxy <-> host daemon.
+         Host sees this as /dev/virtio-ports/org.bulwarkos.wifi -->
+    <channel type='unix'>
+      <target type='virtio' name='org.bulwarkos.wifi'/>
+    </channel>
 
-    <!-- No display output — headless VM -->
-  </devices>
+ </devices>
 
   <!-- Auto-start with the host -->
   <pm>

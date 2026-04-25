@@ -1,0 +1,14 @@
+[Unit]
+Description=BulwarkOS WiFi host daemon
+Documentation=https://github.com/connorethanjay/bulwarkOS
+After=graphical-session.target dbus.socket
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=python3 -m bulwarkos_wifi
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target
