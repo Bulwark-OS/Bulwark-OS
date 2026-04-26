@@ -2,7 +2,11 @@
   <name>banking</name>
   <title>BulwarkOS — Banking AppVM</title>
   <description>Maximum-isolation VM for financial sites only. Minimal footprint — no shared clipboard, no shared folders.</description>
-
+  <metadata>
+  <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+    <libosinfo:os id="http://fedoraproject.org/fedora/43"/>
+  </libosinfo:libosinfo>
+  </metadata>
   <!-- Intentionally minimal RAM — banking sites need very little -->
   <memory unit='MiB'>2048</memory>
   <currentMemory unit='MiB'>1024</currentMemory>

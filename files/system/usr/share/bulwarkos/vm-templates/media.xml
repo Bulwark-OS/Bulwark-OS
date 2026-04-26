@@ -2,7 +2,11 @@
   <name>media</name>
   <title>BulwarkOS — Media AppVM</title>
   <description>VM for streaming, video playback, and downloaded media files.</description>
-
+  <metadata>
+  <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+    <libosinfo:os id="http://fedoraproject.org/fedora/43"/>
+  </libosinfo:libosinfo>
+  </metadata>
   <memory unit='MiB'>4096</memory>
   <currentMemory unit='MiB'>2048</currentMemory>
   <vcpu placement='static'>4</vcpu>

@@ -2,7 +2,11 @@
   <name>personal</name>
   <title>BulwarkOS — Personal AppVM</title>
   <description>Medium-trust VM for web browsing, email, and social media. Routes all traffic through sys-firewall.</description>
-
+  <metadata>
+  <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+    <libosinfo:os id="http://fedoraproject.org/fedora/43"/>
+  </libosinfo:libosinfo>
+  </metadata>
   <memory unit='MiB'>4096</memory>
   <currentMemory unit='MiB'>2048</currentMemory>
   <vcpu placement='static'>4</vcpu>

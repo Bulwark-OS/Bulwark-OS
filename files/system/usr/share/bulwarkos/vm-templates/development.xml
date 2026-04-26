@@ -2,7 +2,11 @@
   <name>development</name>
   <title>BulwarkOS — Development AppVM</title>
   <description>VM for compilers, containers, and local development servers. Higher resource allocation.</description>
-
+  <metadata>
+  <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+    <libosinfo:os id="http://fedoraproject.org/fedora/43"/>
+  </libosinfo:libosinfo>
+  </metadata>
   <memory unit='MiB'>16384</memory>
   <currentMemory unit='MiB'>8192</currentMemory>
   <vcpu placement='static'>8</vcpu>

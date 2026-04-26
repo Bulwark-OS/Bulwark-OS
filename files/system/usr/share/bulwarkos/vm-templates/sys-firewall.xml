@@ -2,7 +2,11 @@
   <name>sys-firewall</name>
   <title>BulwarkOS sys-firewall — traffic routing and policy VM</title>
   <description>Routes and filters traffic between sys-net and AppVMs via nftables. Never exposes physical NICs directly.</description>
-
+  <metadata>
+    <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+      <libosinfo:os id="http://alpinelinux.org/alpinelinux/3.23"/>
+    </libosinfo:libosinfo>
+  </metadata>
   <memory unit='MiB'>512</memory>
   <currentMemory unit='MiB'>512</currentMemory>
   <vcpu placement='static'>2</vcpu>

@@ -2,7 +2,11 @@
   <name>sys-net</name>
   <title>BulwarkOS sys-net — network isolation VM</title>
   <description>Receives physical NIC(s) via VFIO. All AppVM traffic routes through sys-firewall to this VM.</description>
-
+  <metadata>
+    <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+      <libosinfo:os id="http://alpinelinux.org/alpinelinux/3.23"/>
+    </libosinfo:libosinfo>
+  </metadata>
   <memory unit='MiB'>512</memory>
   <currentMemory unit='MiB'>512</currentMemory>
   <vcpu placement='static'>2</vcpu>

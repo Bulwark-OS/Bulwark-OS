@@ -2,7 +2,11 @@
   <name>disposable</name>
   <title>BulwarkOS — Disposable AppVM</title>
   <description>Ephemeral VM. The disk image is reset from a clean snapshot on every boot. Nothing persists after shutdown.</description>
-
+  <metadata>
+  <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+    <libosinfo:os id="http://fedoraproject.org/fedora/43"/>
+  </libosinfo:libosinfo>
+  </metadata>
   <memory unit='MiB'>2048</memory>
   <currentMemory unit='MiB'>2048</currentMemory>
   <vcpu placement='static'>2</vcpu>
