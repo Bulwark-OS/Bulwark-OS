@@ -1,21 +1,21 @@
-<img alt="bulwarkOS-logo" src="https://github.com/user-attachments/assets/fdea4b2a-3d4c-4f13-b25c-6a2dd4475cc0" />
+<img alt="BulwarkOS-logo" src="https://github.com/user-attachments/assets/2a97939e-b5da-4acb-9adc-29f656ef2981" />
 
-# [![bluebuild build badge](https://github.com/connorethanjay/bulwarkOS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/bulwarkOS/actions/workflows/build.yml) <img src="https://img.shields.io/badge/built%20with-BlueBuild-informational" alt="Built with BlueBuild"/> <img src="https://img.shields.io/badge/base-Fedora%20Silverblue-blue?logo=fedora" alt="Base: Fedora Silverblue"/> <img src="https://img.shields.io/badge/status-early%20alpha-orange" alt="Status: Early Alpha"/>
+# [![bluebuild build badge](https://github.com/connorethanjay/BulwarkOS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/BulwarkOS/actions/workflows/build.yml) <img src="https://img.shields.io/badge/built%20with-BlueBuild-informational" alt="Built with BlueBuild"/> <img src="https://img.shields.io/badge/base-Fedora%20Silverblue-blue?logo=fedora" alt="Base: Fedora Silverblue"/> <img src="https://img.shields.io/badge/status-early%20alpha-orange" alt="Status: Early Alpha"/>
 
 > [!WARNING]
-> bulwarkOS is in very early development and is built primarily for personal use. It is becoming functional but is incomplete. Do not use this as your primary system unless you are comfortable debugging a work-in-progress immutable Linux distribution.
+> BulwarkOS is in very early development and is built primarily for personal use. It is becoming functional but is incomplete. Do not use this as your primary system unless you are comfortable debugging a work-in-progress immutable Linux distribution.
+  
+# About BulwarkOS
 
-# About bulwarkOS
+BulwarkOS is an immutable desktop Linux distribution that brings the compartmentalization threat model of [**Qubes OS**](https://www.qubes-os.org/) to a conventional hypervisor stack without the significant usability constraints that Qubes OS imposes.
 
-bulwarkOS is an immutable desktop Linux distribution that brings the compartmentalization threat model of [**Qubes OS**](https://www.qubes-os.org/) to a conventional hypervisor stack without the significant usability constraints that Qubes OS imposes.
-
-Rather than running Xen like in Qubes OS, bulwarkOS uses libvirt/KVM as it's hypervisor, with VFIO hardware passthrough to isolate meaningful hardware like your physical network interfaces & graphics card. Environments like "Work" and "Personal" can be separated into different virtual machines, all configured automatically by a first-run setup wizard and then accessed with a custom panel application.
+Rather than running Xen like in Qubes OS, BulwarkOS uses libvirt/KVM as it's hypervisor, with VFIO hardware passthrough to isolate meaningful hardware like your physical network interfaces & graphics card. Environments like "Work" and "Personal" can be separated into different virtual machines, all configured automatically by a first-run setup wizard and then accessed with a custom panel application.
 
 The end-goal is a system that is meaningfully harder to compromise than a standard desktop Linux install, without sacrificing a system's usability or gaming capability.
 
 ## How it works
 
-bulwarkOS establishes a layered isolation architecture on top of a standard Fedora Silverblue base:
+BulwarkOS establishes a layered isolation architecture on top of a standard Fedora Silverblue base:
 
 **sys-net** receives your physical network interfaces via VFIO passthrough. The host never touches the network directly after setup.
 
@@ -103,12 +103,12 @@ The following are pre-defined trust levels within BulwarkOS.
 |---|---|---|---|
 | sys-net | Alpine | System — routed directly to internet | ✓ |
 | sys-firewall | Alpine | System — firewall between AppVMs and sys-net | ✓ |
-| personal | Fedora Cloud | Trusted — browsing, email, social | Optional |
-| work | Fedora Cloud | Trusted — office, meetings, internal tools | Optional |
-| banking | Fedora Cloud | Vault — financial sites, no clipboard sharing | Optional |
-| development | Fedora Cloud | Development — compilers, containers, local servers | Optional |
-| disposable | Alpine | Untrusted — wiped completely on shutdown | Optional |
-| media | Fedora Cloud | Untrusted — streaming, local media playback | Optional |
+| personal | Fedora w/ GUI | Trusted — browsing, email, social | Optional |
+| work | Fedora w/ GUI | Trusted — office, meetings, internal tools | Optional |
+| banking | Fedora w/ GUI | Vault — financial sites, no clipboard sharing | Optional |
+| development | Fedora w/ GUI | Development — compilers, containers, local servers | Optional |
+| media | Fedora w/ GUI  | Untrusted — streaming, local media playback | Optional |
+| disposable | Tails OS | Untrusted — wiped completely on shutdown | Optional |
 | gaming-vm | User-installed | Untrusted passthrough, Looking Glass display | Optional |
 
 sys-net and sys-firewall are always provisioned automatically.
@@ -127,7 +127,7 @@ This is a personal project and there are no fixed timelines, but planned work in
 
 ## Acknowledgements
 
-bulwarkOS stands on the shoulders of several projects:
+BulwarkOS stands on the shoulders of several projects:
 
 - **[Qubes OS](https://www.qubes-os.org/)** — the threat model and compartmentalization philosophy that inspired this project
 - **[BlueBuild](https://blue-build.org/)** — the toolchain used to build and publish the OCI image
@@ -137,7 +137,7 @@ bulwarkOS stands on the shoulders of several projects:
 
 ## Verification
 
-bulwarkOS images are signed with [Sigstore](https://www.sigstore.dev/) cosign. Verify with:
+BulwarkOS images are signed with [Sigstore](https://www.sigstore.dev/) cosign. Verify with:
 
 ```bash
 cosign verify --key cosign.pub ghcr.io/connorethanjay/bulwark-os
