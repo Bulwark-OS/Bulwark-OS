@@ -15,6 +15,12 @@ modules:
       - source: system
         destination: /
   # -------------------------------------------------------------------------
+  #   Scripts
+  # -------------------------------------------------------------------------
+  - type: script
+    scripts:
+      - installkvmfr.sh
+  # -------------------------------------------------------------------------
   #    DNF packages & default Flatpaks
   # -------------------------------------------------------------------------
   - type: dnf
@@ -66,11 +72,6 @@ modules:
               "https://github.com/connorethanjay/bulwarkOS/releases/download/v0.1.0/fedora-gnome-base.qcow2" && \
             sha256sum "$BASE_DIR"/*.qcow2 > "$BASE_DIR/SHA256SUMS" && \
             ls -lh "$BASE_DIR"
-            
-        cp /usr/sbin/akmodsbuild /usr/sbin/akmodsbuild.backup
-        sed -i '/if \[\[ -w \/var \]\] ; then/,/fi/d' /usr/sbin/akmodsbuild
-        dnf install -y --setopt=install_weak_deps=False kvmfr
-        mv /usr/sbin/akmodsbuild.backup /usr/sbin/akmodsbuild
   # -------------------------------------------------------------------------
   #    Tweaks & Extensions
   # -------------------------------------------------------------------------
