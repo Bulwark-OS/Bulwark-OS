@@ -25,6 +25,7 @@ modules:
         - hikariknight/looking-glass-kvmfr
     install:
       packages:
+        - kvmfr
         - libvirt
         - virt-manager
         - virt-viewer
@@ -66,13 +67,6 @@ modules:
               "https://github.com/connorethanjay/bulwarkOS/releases/download/v0.1.0/fedora-gnome-base.qcow2" && \
             sha256sum "$BASE_DIR"/*.qcow2 > "$BASE_DIR/SHA256SUMS" && \
             ls -lh "$BASE_DIR"
-  # -------------------------------------------------------------------------
-  #    Akmods
-  # -------------------------------------------------------------------------
-  - type: akmods
-    base: main
-    install:
-      - kvmfr
   # -------------------------------------------------------------------------
   #    Tweaks & Extensions
   # -------------------------------------------------------------------------
