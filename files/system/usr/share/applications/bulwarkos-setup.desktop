@@ -2,10 +2,14 @@
 Type=Application
 Name=BulwarkOS Setup
 Comment=First-run configuration wizard for bulwarkOS
-Exec=/usr/bin/bulwarkos-setup
+Exec=python3 -m bulwarkos_wizard
 Icon=org.bulwarkos.Setup
 Terminal=false
 Categories=System
+# Only run once — wizard disables this entry on completion
+#X-GNOME-Autostart-enabled=true
+# Only show in GNOME (KDE uses XDG_AUTOSTART differently but will still honour >
 OnlyShowIn=GNOME;KDE;
+# Do not show in the applications menu — launched by autostart only
 NoDisplay=true
 StartupWMClass=org.bulwarkos.Setup

@@ -18,6 +18,9 @@ modules:
   #    DNF packages & default Flatpaks
   # -------------------------------------------------------------------------
   - type: dnf
+    repos:
+      copr:
+        - hikariknight/looking-glass-kvmfr
     install:
       packages:
         - libvirt
@@ -51,26 +54,40 @@ modules:
     snippets:
   # ── Fetch base images ──────────────────────────────────────────────
       - |
+        # ── Fetch base VM disk images ─────────────────────────────────────
+        #
+        # rocky-base.qcow2
+        #   Latest Rocky Linux 10 GenericCloud, fetched directly from the Rocky CDN.
+        #   Used for System VMs eg. sys-firewall & sys-net.
+        #
+        # fedora-gnome-base.qcow2
+        #   Custom Fedora 43 + GNOME image built for default AppVMs.
+        #   Uploaded with BulwarkOS GitHub Release v0.1.0.
+        #
         RUN BASE_DIR="/usr/share/bulwarkos/base-images" && \
-            RELEASE_URL="https://github.com/connorethanjay/bulwarkOS/releases/download/v0.1.0" && \
             mkdir -p "$BASE_DIR" && \
             curl -L -f --retry 3 --retry-delay 5 \
-              -o "$BASE_DIR/alpine-nocloud.qcow2" \
-              "$RELEASE_URL/alpine-nocloud.qcow2" && \
+              -o "$BASE_DIR/rocky-base.qcow2" \
+              "https://dl.rockylinux.org/pub/rocky/10/images/x86_64/Rocky-10-GenericCloud-Base.latest.x86_64.qcow2" && \
             curl -L -f --retry 3 --retry-delay 5 \
               -o "$BASE_DIR/fedora-gnome-base.qcow2" \
-              "$RELEASE_URL/fedora-gnome-base.qcow2" && \
+              "https://github.com/connorethanjay/bulwarkOS/releases/download/v0.1.0/fedora-gnome-base.qcow2" && \
             sha256sum "$BASE_DIR"/*.qcow2 > "$BASE_DIR/SHA256SUMS" && \
             ls -lh "$BASE_DIR"
+  # -------------------------------------------------------------------------
+  #    Akmods
+  # -------------------------------------------------------------------------
+  - type: akmods
+    install:
+    - kvmfr
   # -------------------------------------------------------------------------
   #    Tweaks & Extensions
   # -------------------------------------------------------------------------
   - type: gnome-extensions
     install:
-    - 307
+    - Dash to Dock
     - Vitals
     - Click to close overview
-    - Date Menu Formatter
 
   - type: gschema-overrides
     include:
