@@ -48,22 +48,22 @@ modules:
           - org.gnome.Loupe
       - scope: user
   # -------------------------------------------------------------------------
-  #    Base VM Disk Images
+  #    Containerfile Snippets
   # -------------------------------------------------------------------------
   - type: containerfile
     snippets:
-  # ── Fetch base images ──────────────────────────────────────────────
+  # ── Looking Glass Module ──────────────────────────────────────────────
       - |
-        # ── Fetch base VM disk images ─────────────────────────────────────
-        #
-        # rocky-base.qcow2
-        #   Latest Rocky Linux 10 GenericCloud, fetched directly from the Rocky CDN.
-        #   Used for System VMs eg. sys-firewall & sys-net.
-        #
-        # fedora-gnome-base.qcow2
-        #   Custom Fedora 43 + GNOME image built for default AppVMs.
-        #   Uploaded with BulwarkOS GitHub Release v0.1.0.
-        #
+        RUN \
+	  COPY --from=ghcr.io/ublue-os/akmods:${KERNEL_FLAVOR}-${FEDORA_MAJOR_VERSION} /rpms /tmp/akmods-rpms
+	  COPY --from=ghcr.io/ublue-os/akmods-extra:${KERNEL_FLAVOR}-${FEDORA_MAJOR_VERSION} /rpms /tmp/akmods-rpms
+	  RUN sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo && \
+	    wget https://copr.fedorainfracloud.org/coprs/hikariknight/looking-glass-kvmfr/repo/fedora-"${FEDORA_MAJOR_VERSION}"/hikariknight-looking-glass-kvmfr-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/hikariknight-looking-glass-kvmfr-fedora-"${FEDORA_MAJOR_VERSION}".repo && \
+	    rpm-ostree install \
+		/tmp/akmods-rpms/kmods/*kvmfr*.rpm && \
+	    ostree container commit    
+  # ── Fetch base VM disk images ─────────────────────────────────────
+      - |
         RUN BASE_DIR="/usr/share/bulwarkos/base-images" && \
             mkdir -p "$BASE_DIR" && \
             curl -L -f --retry 3 --retry-delay 5 \
@@ -74,12 +74,6 @@ modules:
               "https://github.com/connorethanjay/bulwarkOS/releases/download/v0.1.0/fedora-gnome-base.qcow2" && \
             sha256sum "$BASE_DIR"/*.qcow2 > "$BASE_DIR/SHA256SUMS" && \
             ls -lh "$BASE_DIR"
-  # -------------------------------------------------------------------------
-  #    Akmods
-  # -------------------------------------------------------------------------
-  - type: akmods
-    install:
-    - kvmfr
   # -------------------------------------------------------------------------
   #    Tweaks & Extensions
   # -------------------------------------------------------------------------
