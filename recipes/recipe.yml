@@ -24,11 +24,6 @@ modules:
   #    DNF packages & default Flatpaks
   # -------------------------------------------------------------------------
   - type: dnf
-    repos:
-      files:
-        - https://copr.fedorainfracloud.org/coprs/hikariknight/looking-glass-kvmfr/repo/fedora-44/hikariknight-looking-glass-kvmfr-fedora-44.repo
-      copr:
-        - hikariknight/looking-glass-kvmfr
     install:
       packages:
         - libvirt
