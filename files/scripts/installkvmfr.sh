@@ -2,6 +2,11 @@
 
 set -oue pipefail
 
+##################################
+# Repository setup
+##################################
+KERNEL_VERSION="$(rpm -q "kernel" --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')"
+RELEASE="$(rpm -E '%fedora.%_arch')"
 #################################
 # Kernel module
 #################################
