@@ -68,7 +68,6 @@ modules:
             ls -lh "$BASE_DIR"
             
         cp /usr/sbin/akmodsbuild /usr/sbin/akmodsbuild.backup
-# Remove this if possible later
         sed -i '/if \[\[ -w \/var \]\] ; then/,/fi/d' /usr/sbin/akmodsbuild
         dnf install -y --setopt=install_weak_deps=False kvmfr
         mv /usr/sbin/akmodsbuild.backup /usr/sbin/akmodsbuild
