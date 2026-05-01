@@ -4,7 +4,7 @@
 name: bulwark-os
 description: Qubes OS-inspired immutable Linux distro with libvirt compartmentalization.
 base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 43
+image-version: 44
   # -------------------------------------------------------------------------
   #    System files: drops wizard, VM templates, base images, systemd units
   #    into the OS image verbatim from /files/system/
@@ -19,6 +19,8 @@ modules:
   # -------------------------------------------------------------------------
   - type: dnf
     repos:
+      files:
+        - https://copr.fedorainfracloud.org/coprs/hikariknight/looking-glass-kvmfr/repo/fedora-44/hikariknight-looking-glass-kvmfr-fedora-44.repo
       copr:
         - hikariknight/looking-glass-kvmfr
     install:
@@ -52,16 +54,6 @@ modules:
   # -------------------------------------------------------------------------
   - type: containerfile
     snippets:
-  # ── Looking Glass Module ──────────────────────────────────────────────
-      - |
-        RUN \
-            COPY --from=ghcr.io/ublue-os/akmods:${KERNEL_FLAVOR}-${FEDORA_MAJOR_VERSION} /rpms /tmp/akmods-rpms
-            COPY --from=ghcr.io/ublue-os/akmods-extra:${KERNEL_FLAVOR}-${FEDORA_MAJOR_VERSION} /rpms /tmp/akmods-rpms
-            RUN sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo && \
-            wget https://copr.fedorainfracloud.org/coprs/hikariknight/looking-glass-kvmfr/repo/fedora-"${FEDORA_MAJOR_VERSION}"/hikariknight-looking-glass-kvmfr-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/hikariknight-looking-glass-kvmfr-fedora-"${FEDORA_MAJOR_VERSION}".repo && \
-            rpm-ostree install \
-            /tmp/akmods-rpms/kmods/*kvmfr*.rpm && \
-            ostree container commit    
   # ── Fetch base VM disk images ─────────────────────────────────────
       - |
         RUN BASE_DIR="/usr/share/bulwarkos/base-images" && \
@@ -74,6 +66,13 @@ modules:
               "https://github.com/connorethanjay/bulwarkOS/releases/download/v0.1.0/fedora-gnome-base.qcow2" && \
             sha256sum "$BASE_DIR"/*.qcow2 > "$BASE_DIR/SHA256SUMS" && \
             ls -lh "$BASE_DIR"
+  # -------------------------------------------------------------------------
+  #    Akmods
+  # -------------------------------------------------------------------------
+  - type: akmods
+    base: main
+    install:
+      - kvmfr
   # -------------------------------------------------------------------------
   #    Tweaks & Extensions
   # -------------------------------------------------------------------------
