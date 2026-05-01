@@ -7,7 +7,7 @@ base-image: ghcr.io/ublue-os/silverblue-main
 image-version: 43
   # -------------------------------------------------------------------------
   #    System files: drops wizard, VM templates, base images, systemd units
-  #    into the OS image verbatim from files/system/
+  #    into the OS image verbatim from /files/system/
   # -------------------------------------------------------------------------
 modules:
   - type: files
@@ -55,13 +55,13 @@ modules:
   # ── Looking Glass Module ──────────────────────────────────────────────
       - |
         RUN \
-	  COPY --from=ghcr.io/ublue-os/akmods:${KERNEL_FLAVOR}-${FEDORA_MAJOR_VERSION} /rpms /tmp/akmods-rpms
-	  COPY --from=ghcr.io/ublue-os/akmods-extra:${KERNEL_FLAVOR}-${FEDORA_MAJOR_VERSION} /rpms /tmp/akmods-rpms
-	  RUN sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo && \
-	    wget https://copr.fedorainfracloud.org/coprs/hikariknight/looking-glass-kvmfr/repo/fedora-"${FEDORA_MAJOR_VERSION}"/hikariknight-looking-glass-kvmfr-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/hikariknight-looking-glass-kvmfr-fedora-"${FEDORA_MAJOR_VERSION}".repo && \
-	    rpm-ostree install \
-		/tmp/akmods-rpms/kmods/*kvmfr*.rpm && \
-	    ostree container commit    
+            COPY --from=ghcr.io/ublue-os/akmods:${KERNEL_FLAVOR}-${FEDORA_MAJOR_VERSION} /rpms /tmp/akmods-rpms
+            COPY --from=ghcr.io/ublue-os/akmods-extra:${KERNEL_FLAVOR}-${FEDORA_MAJOR_VERSION} /rpms /tmp/akmods-rpms
+            RUN sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo && \
+            wget https://copr.fedorainfracloud.org/coprs/hikariknight/looking-glass-kvmfr/repo/fedora-"${FEDORA_MAJOR_VERSION}"/hikariknight-looking-glass-kvmfr-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/hikariknight-looking-glass-kvmfr-fedora-"${FEDORA_MAJOR_VERSION}".repo && \
+            rpm-ostree install \
+            /tmp/akmods-rpms/kmods/*kvmfr*.rpm && \
+            ostree container commit    
   # ── Fetch base VM disk images ─────────────────────────────────────
       - |
         RUN BASE_DIR="/usr/share/bulwarkos/base-images" && \
@@ -82,7 +82,6 @@ modules:
     - Dash to Dock
     - Vitals
     - Click to close overview
-
   - type: gschema-overrides
     include:
       - zz1-bulwarkos.gschema.override
