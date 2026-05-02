@@ -48,7 +48,9 @@ modules:
       - notify: false
         scope: system
         install:
+          - org.gnome.TextEditor
           - org.gnome.Loupe
+          - org.gnome.Nautilus
       - scope: user
   # -------------------------------------------------------------------------
   #    Containerfile Snippets
