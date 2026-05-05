@@ -29,6 +29,7 @@ modules:
         - libvirt
         - virt-manager
         - virt-viewer
+        - virt-install
         - qemu-kvm
         - dnsmasq
         - qemu-img
