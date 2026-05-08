@@ -21,7 +21,7 @@ BulwarkOS establishes a layered isolation architecture on top of a standard Fedo
 
 **sys-firewall** sits between sys-net and your AppVMs, enforcing traffic policy via nftables. All AppVM traffic routes through it.
 
-**AppVMs** are isolated Fedora, Windows, Alpine, etc virtual machines, each representing a trust domain. They communicate with the outside world only through sys-firewall, never directly.
+**AppVMs** are isolated Fedora, Windows, etc virtual machines, each representing a trust domain. They communicate with the outside world only through sys-firewall, never directly.
 
 The host itself runs a minimal footprint: 
 
