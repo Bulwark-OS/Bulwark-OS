@@ -3,13 +3,13 @@
 # [![bluebuild build badge](https://github.com/connorethanjay/BulwarkOS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/BulwarkOS/actions/workflows/build.yml) <img src="https://img.shields.io/badge/built%20with-BlueBuild-informational" alt="Built with BlueBuild"/> <img src="https://img.shields.io/badge/base-Fedora%20Silverblue-blue?logo=fedora" alt="Base: Fedora Silverblue"/> <img src="https://img.shields.io/badge/status-early%20alpha-orange" alt="Status: Early Alpha"/>
 
 > [!WARNING]
-> BulwarkOS is in very early development and is built primarily for personal use. It is becoming functional but is incomplete. Do not use this as your primary system unless you are comfortable debugging a work-in-progress immutable Linux distribution.
+> BulwarkOS is in very early development and is built primarily for personal use. It is becoming functional but is still incomplete. Do not use this as your primary system unless you are comfortable debugging a work-in-progress immutable Linux distribution with many features still to be implemented.
   
 # About BulwarkOS
 
 BulwarkOS is an immutable desktop Linux distribution that brings the compartmentalization threat model of [**Qubes OS**](https://www.qubes-os.org/) to a conventional hypervisor stack without the significant usability constraints that Qubes OS imposes.
 
-Rather than running Xen like in Qubes OS, BulwarkOS uses libvirt/KVM as it's hypervisor, with VFIO hardware passthrough to isolate meaningful hardware like your physical network interfaces & graphics card. Environments like "Work" and "Personal" can be separated into different virtual machines, all configured automatically by a first-run setup wizard and then accessed with a custom panel application.
+Rather than running Xen like in Qubes OS, BulwarkOS uses libvirt/KVM with VFIO hardware passthrough to isolate meaningful hardware like your physical network interfaces & graphics card. Environments like "Work" and "Personal" can be separated into different virtual machines, all configured automatically by a first-run setup wizard and then accessed with a custom panel application.
 
 The end-goal is a system that is meaningfully harder to compromise than a standard desktop Linux install, without sacrificing a system's usability or gaming capability.
 
@@ -81,35 +81,36 @@ systemctl reboot
 
 On next login, the OOBE setup wizard will launch automatically.
 
-## Default Flatpaks
+## Default Flatpaks / Applications
 
 The host is intentionally minimal. Most applications belong in an AppVM, not on the host.
 
 | Flatpak | Purpose |
 |---|---|
-| `org.gnome.Loupe` | Image viewer |
-| `org.gnome.Nautilus` | File manager for VM shared folder access |
+| `org.gnome.Loupe` | Simple image viewer |
+| `org.gnome.Nautilus` | Simple file manager |
+| `org.gnome.TextEditor` | Simple text editor |
 
-The following will be available as an opt-in during OOBE for users who want gaming support.
+The Looking Glass client will soon be available as an manually-built (during the setup wizard) opt-in during OOBE for users who want gaming support. The host application will need to be manually installed by the user (you).
 
-| Flatpak | Purpose |
+| Applications | Purpose |
 |---|---|
-| `com.github.gnome_looking_glass.LookingGlass` | Low-latency GPU passthrough display capture |
+| `Looking Glass client` | Low-latency GPU passthrough display capture |
 
 ## VM trust domains
 
-The following are pre-defined trust levels within BulwarkOS.
+The following are pre-defined VM trust domains within BulwarkOS.
 | VM | Base OS | Trust level | Default |
 |---|---|---|---|
-| sys-net | Alpine | System — routed directly to internet | ✓ |
-| sys-firewall | Alpine | System — firewall between AppVMs and sys-net | ✓ |
+| sys-net | Rocky | System — routed directly to internet | ✓ |
+| sys-firewall | Rocky | System — firewall between AppVMs and sys-net | ✓ |
 | personal | Fedora w/ GUI | Trusted — browsing, email, social | Optional |
 | work | Fedora w/ GUI | Trusted — office, meetings, internal tools | Optional |
 | banking | Fedora w/ GUI | Vault — financial sites, no clipboard sharing | Optional |
 | development | Fedora w/ GUI | Development — compilers, containers, local servers | Optional |
 | media | Fedora w/ GUI  | Untrusted — streaming, local media playback | Optional |
 | disposable | Tails OS | Untrusted — wiped completely on shutdown | Optional |
-| gaming-vm | User-installed | Untrusted passthrough, Looking Glass display | Optional |
+| gaming-vm | User-installed | Untrusted - display passthrough via Looking Glass | Optional |
 
 sys-net and sys-firewall are always provisioned automatically.
 
@@ -117,12 +118,12 @@ sys-net and sys-firewall are always provisioned automatically.
 
 This is a personal project and there are no fixed timelines, but planned work includes:
 
-- [ ] virt-manager replacement / custom VM control panel (BulwarkOS Panel)
+- [x] virt-manager replacement / custom VM control panel (BulwarkOS Panel)
 - [ ] AppVM image auto-update mechanism
 - [ ] Integration of hardening defaults from [secureblue](https://github.com/secureblue/secureblue)
 - [ ] Per-AppVM nftables egress policy configuration in the OOBE wizard
 - [ ] Wayland clipboard broker between AppVMs (controlled sharing)
-- [ ] Looking Glass integration improvements for the gaming VM
+- [ ] Looking Glass implementation & integration for the gaming VM
 - [ ] ISO distribution
 
 ## Acknowledgements
