@@ -1,21 +1,21 @@
-<img alt="BulwarkOS-logo" src="https://github.com/user-attachments/assets/2a97939e-b5da-4acb-9adc-29f656ef2981" />
+<img alt="Bulwark OS-logo" src="https://github.com/user-attachments/assets/2a97939e-b5da-4acb-9adc-29f656ef2981" />
 
-# [![bluebuild build badge](https://github.com/connorethanjay/BulwarkOS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/BulwarkOS/actions/workflows/build.yml) <img src="https://img.shields.io/badge/built%20with-BlueBuild-informational" alt="Built with BlueBuild"/> <img src="https://img.shields.io/badge/base-Fedora%20Silverblue-blue?logo=fedora" alt="Base: Fedora Silverblue"/> <img src="https://img.shields.io/badge/status-early%20alpha-orange" alt="Status: Early Alpha"/>
+# [![bluebuild build badge](https://github.com/connorethanjay/Bulwark OS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/Bulwark OS/actions/workflows/build.yml) <img src="https://img.shields.io/badge/built%20with-BlueBuild-informational" alt="Built with BlueBuild"/> <img src="https://img.shields.io/badge/base-Fedora%20Silverblue-blue?logo=fedora" alt="Base: Fedora Silverblue"/> <img src="https://img.shields.io/badge/status-early%20alpha-orange" alt="Status: Early Alpha"/>
 
 > [!WARNING]
-> BulwarkOS is in very early development and is built primarily for personal use. It is becoming functional but is still incomplete. Do not use this as your primary system unless you are comfortable debugging a work-in-progress immutable Linux distribution with many features still to be implemented.
+> Bulwark OS is in very early development and is built primarily for personal use. It is becoming functional but is still incomplete. Do not use this as your primary system unless you are comfortable debugging a work-in-progress immutable Linux distribution with many features still to be implemented.
   
-# About BulwarkOS
+# About Bulwark OS
 
-BulwarkOS is an immutable desktop Linux distribution that brings the compartmentalization threat model of [**Qubes OS**](https://www.qubes-os.org/) to a conventional hypervisor stack without the significant usability constraints that Qubes OS imposes.
+Bulwark OS is an immutable desktop Linux distribution that brings the compartmentalization threat model of [**Qubes OS**](https://www.qubes-os.org/) to the libvirt/KVM hypervisor stack without the significant usability constraints that Qubes OS imposes.
 
-Rather than running Xen like in Qubes OS, BulwarkOS uses libvirt/KVM with VFIO hardware passthrough to isolate meaningful hardware like your physical network interfaces & graphics card. Environments like "Work" and "Personal" can be separated into different virtual machines, all configured automatically by a first-run setup wizard and then accessed with a custom panel application.
+Rather than running Xen like in Qubes OS, Bulwark OS uses libvirt/KVM with VFIO hardware passthrough to isolate meaningful hardware like your physical network interfaces & graphics card. Environments like "Work" and "Personal" can be separated into different virtual machines, all configured automatically by a first-run setup wizard and then accessed with a custom panel application.
 
-The end-goal is a system that is meaningfully harder to compromise than a standard desktop Linux install, without sacrificing a system's usability or gaming capability.
+The end goal is a system that is meaningfully harder to compromise than a standard desktop Linux install, without sacrificing a system's usability for the end-user.
 
 ## How it works
 
-BulwarkOS establishes a layered isolation architecture on top of a standard Fedora Silverblue base:
+Bulwark OS establishes a layered isolation architecture on top of a standard Fedora Silverblue base:
 
 **sys-net** receives your physical network interfaces via VFIO passthrough. The host never touches the network directly after setup.
 
@@ -25,8 +25,8 @@ BulwarkOS establishes a layered isolation architecture on top of a standard Fedo
 
 The host itself runs a minimal footprint: 
 
-- the BulwarkOS Panel provides access & management to your virtual machines
-- virt-manager acts as a backup to the BulwarkOS Panel for more granular control.
+- the Bulwark OS Panel provides access & management to your virtual machines
+- virt-manager acts as a backup to the Bulwark OS Panel for more granular control.
 - Loupe for viewing simple media on the host.
 - Nautilus for simple file management on the host.
 
@@ -99,7 +99,7 @@ The Looking Glass client will soon be available as an manually-built (during the
 
 ## VM trust domains
 
-The following are pre-defined VM trust domains within BulwarkOS.
+The following are pre-defined VM trust domains within Bulwark OS.
 | VM | Base OS | Trust level | Default |
 |---|---|---|---|
 | sys-net | Rocky | System — routed directly to internet | ✓ |
@@ -118,7 +118,7 @@ sys-net and sys-firewall are always provisioned automatically.
 
 This is a personal project and there are no fixed timelines, but planned work includes:
 
-- [x] virt-manager replacement / custom VM control panel (BulwarkOS Panel)
+- [x] virt-manager replacement / custom VM control panel (Bulwark OS Panel)
 - [ ] AppVM image auto-update mechanism
 - [ ] Integration of hardening defaults from [secureblue](https://github.com/secureblue/secureblue)
 - [ ] Per-AppVM nftables egress policy configuration in the OOBE wizard
@@ -128,7 +128,7 @@ This is a personal project and there are no fixed timelines, but planned work in
 
 ## Acknowledgements
 
-BulwarkOS stands on the shoulders of several projects:
+Bulwark OS stands on the shoulders of several projects:
 
 - **[Qubes OS](https://www.qubes-os.org/)** — the threat model and compartmentalization philosophy that inspired this project
 - **[BlueBuild](https://blue-build.org/)** — the toolchain used to build and publish the OCI image
@@ -138,7 +138,7 @@ BulwarkOS stands on the shoulders of several projects:
 
 ## Verification
 
-BulwarkOS images are signed with [Sigstore](https://www.sigstore.dev/) cosign. Verify with:
+Bulwark OS images are signed with [Sigstore](https://www.sigstore.dev/) cosign. Verify with:
 
 ```bash
 cosign verify --key cosign.pub ghcr.io/connorethanjay/bulwark-os
