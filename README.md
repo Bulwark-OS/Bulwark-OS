@@ -1,6 +1,6 @@
 <img alt="Bulwark OS-logo" src="https://github.com/user-attachments/assets/2a97939e-b5da-4acb-9adc-29f656ef2981" />
 
-# [![bluebuild build badge](https://github.com/connorethanjay/Bulwark OS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/Bulwark OS/actions/workflows/build.yml) <img src="https://img.shields.io/badge/built%20with-BlueBuild-informational" alt="Built with BlueBuild"/> <img src="https://img.shields.io/badge/base-Fedora%20Silverblue-blue?logo=fedora" alt="Base: Fedora Silverblue"/> <img src="https://img.shields.io/badge/status-early%20alpha-orange" alt="Status: Early Alpha"/>
+# [![bluebuild build badge](https://github.com/connorethanjay/Bulwark-OS/actions/workflows/build.yml/badge.svg)](https://github.com/connorethanjay/Bulwark-OS/actions/workflows/build.yml) <img src="https://img.shields.io/badge/built%20with-BlueBuild-informational" alt="Built with BlueBuild"/> <img src="https://img.shields.io/badge/base-Fedora%20Silverblue-blue?logo=fedora" alt="Base: Fedora Silverblue"/> <img src="https://img.shields.io/badge/status-early%20alpha-orange" alt="Status: Early Alpha"/>
 
 > [!WARNING]
 > Bulwark OS is in very early development and is built primarily for personal use. It is becoming functional but is still incomplete. Do not use this as your primary system unless you are comfortable debugging a work-in-progress immutable Linux distribution with many features still to be implemented.
