@@ -141,7 +141,7 @@ Bulwark OS stands on the shoulders of several projects:
 Bulwark OS images are signed with [Sigstore](https://www.sigstore.dev/) cosign. Verify with:
 
 ```bash
-cosign verify --key cosign.pub ghcr.io/connorethanjay/bulwark-os
+cosign verify --key cosign.pub ghcr.io/bulwark-os/bulwark-os
 ```
 
 ## License
